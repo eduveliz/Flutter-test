@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:vertical_tabs/vertical_tabs.dart';
-
+import 'package:eatos_app/screens/newOrder.dart';
 class MainPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body:
-      sideBar()
-
+      body: SafeArea(
+        child: sideBar(),
+      )
 
     );
   }
@@ -190,7 +190,7 @@ class NewOrder extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff565962),
@@ -212,15 +212,20 @@ class NewOrder extends StatelessWidget{
                   alignment: Alignment.center,
                   child: Text('Menus'),
               ),
-            )
+            ),
+            Tab(
+              child: Align(
+              alignment: Alignment.center,
+              child: Text('Server Connected'),
+              )
+      ),
           ],
         ),
       ),
         body: TabBarView(
           children: <Widget>[
-            Container(
+            ListView(
               padding: EdgeInsets.all(10),
-              child: Column(
                 children:[
                   Form(
                     child:Container(
@@ -229,8 +234,8 @@ class NewOrder extends StatelessWidget{
                     decoration: BoxDecoration(
                       border: Border.all()
                     ),
-                    child: TextFormField(
-                    decoration: InputDecoration(
+                      child: TextFormField(
+                      decoration: InputDecoration(
                       hintText:'Item Name' ,
                       border: InputBorder.none
                     ),
@@ -238,26 +243,107 @@ class NewOrder extends StatelessWidget{
                   ),
                 ),
                   Container(
-                    child: Wrap(direction: Axis.horizontal,
+                    padding: EdgeInsets.all(5),
+                    //width: MediaQuery.of(context).size.width,
+                    //color: Colors.greenAccent,
+                    child: Row(//direction: Axis.horizontal,
                     children: <Widget>[
-                        Column(
-                        children: <Widget>[Wrap(
-                        //direction: Axis.horizontal,
-                        children:buildList(),
-                        )]),
-                      Column(
-                      children: <Widget>[
-                        Container(width:90,height:90,decoration: BoxDecoration(
-                      border: Border.all()
-                        ),)
-                      ]
-                    )
-                    ],
-                  )
+                      Flexible(
+                        child: Column(
+                          children: <Widget>[
+                            Container(//color: Colors.red,
+                                child:Wrap(children: [
+                                  for (int i = 1; i < 10; i++)
+                                   /* OutlineButton(
+                                      onPressed: (){},
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5)
+                                        ),
+                                        child:Text(i.toString(),
+                                            style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
+                                    )*/
+                                  Container(width: 50,margin: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  ),
+                                    child: Center(child:Text(i.toString(),
+                                    style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
+                                    )
+                                  )
+                                ],)),
+                            Container(//color: Colors.amber,
+                              child:Row(children: <Widget>[
+                                Flexible(
+                                  flex:3,
+                                  child: OutlineButton(
+                                    shape: Border.all(width: 1,color: Colors.black),child:Text('00',
+                                      style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
+                                    onPressed: (){},
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: OutlineButton(shape: Border.all(width: 1,color: Colors.black),
+                                    child:Text('0',
+                                      style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
+                                    onPressed: (){},
+                                  ),
+                                )
+                            ])
+                            )],
+                          )
+                        ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Column(
+                          children: <Widget>[
+                          Container(
+                                child:Container(width:70,height:80,decoration: BoxDecoration(
+                                    border: Border.all()
+                                ),
+                                  child: Center(
+                                    child: Text('+',textAlign: TextAlign.center,),
+                                  ),
+                                )
+                            ),
+                            Container(
+                                child:Container(width:70,height:80,decoration: BoxDecoration(
+                                    border: Border.all()
+                                ),child: Center(
+                                  child: Text('+',textAlign: TextAlign.center,),
+                                )
+                                )
+                            )
+                          ],
+                        ),
+                      )
 
+                    ],
+                  ),
+                  ),
+                  Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.blue,
+                    child: Form(
+                      child:Container(
+                        margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.only(left: 5),
+                        decoration: BoxDecoration(
+                            border: Border.all()
+                        ),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              hintText:'Item Name' ,
+                              border: InputBorder.none
+                          ),
+                        ),
+                      ),
+                    ),
                   )
                 ]
-              ),
+            ),
+            Container(
+
             ),
             Container(
 
@@ -272,7 +358,7 @@ class NewOrder extends StatelessWidget{
     List<Widget> numberList = [];
       for (int i = 1; i < 10; i++) {
         numberList.add(
-        Container(width: 65,
+        Container(width: 50,
           margin: EdgeInsets.all(5),
             padding: EdgeInsets.only(left: 25),
             decoration: BoxDecoration(

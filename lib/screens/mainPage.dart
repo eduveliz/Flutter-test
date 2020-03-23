@@ -218,7 +218,7 @@ class NewOrder extends StatelessWidget{
               alignment: Alignment.center,
               child: Text('Server Connected'),
               )
-      ),
+            ),
           ],
         ),
       ),
@@ -252,38 +252,65 @@ class NewOrder extends StatelessWidget{
                         child: Column(
                           children: <Widget>[
                             Container(//color: Colors.red,
-                                child:Wrap(children: [
-                                  for (int i = 1; i < 10; i++)
-                                   /* OutlineButton(
-                                      onPressed: (){},
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5)
-                                        ),
-                                        child:Text(i.toString(),
-                                            style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
-                                    )*/
-                                  Container(width: 50,margin: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                  border: Border.all(),
+                                child:
+                                Wrap(children: [
+                                  Row( children: <Widget>[
+                                    for (int i = 1; i < 4; i++)
+                                      OutlineButton(
+                                          onPressed: (){},
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5)
+                                          ),
+                                          child:Text(i.toString(),
+                                              style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
+                                      )
+                                  ],
                                   ),
-                                    child: Center(child:Text(i.toString(),
-                                    style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
-                                    )
+                                  Row( children: <Widget>[
+                                    for (int i = 4; i < 7; i++)
+                                      OutlineButton(
+                                          onPressed: (){},
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5)
+                                          ),
+                                          child:Text(i.toString(),
+                                              style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
+                                      )
+                                  ],
+                                  ),
+                                  Row( children: <Widget>[
+                                    for (int i = 7; i < 10; i++)
+                                      OutlineButton(
+                                          onPressed: (){},
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5)
+                                          ),
+                                          child:Text(i.toString(),
+                                              style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
+                                      )
+                                  ],
                                   )
-                                ],)),
+
+                                ],
+                                )
+                            ),
                             Container(//color: Colors.amber,
                               child:Row(children: <Widget>[
                                 Flexible(
                                   flex:3,
                                   child: OutlineButton(
-                                    shape: Border.all(width: 1,color: Colors.black),child:Text('00',
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5)
+                                    ),child:Text('00',
                                       style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
                                     onPressed: (){},
                                   ),
                                 ),
                                 Flexible(
                                   flex: 1,
-                                  child: OutlineButton(shape: Border.all(width: 1,color: Colors.black),
+                                  child: OutlineButton(shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)
+                                  ),
                                     child:Text('0',
                                       style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
                                     onPressed: (){},
@@ -297,21 +324,24 @@ class NewOrder extends StatelessWidget{
                         alignment: Alignment.centerRight,
                         child: Column(
                           children: <Widget>[
-                          Container(
-                                child:Container(width:70,height:80,decoration: BoxDecoration(
-                                    border: Border.all()
-                                ),
-                                  child: Center(
-                                    child: Text('+',textAlign: TextAlign.center,),
-                                  ),
-                                )
+                          Container(width:70,height:80,
+                              child:OutlineButton(
+                               onPressed: (){},
+                                shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(5)
+    ),
+                                  child:Text('+',
+                              style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
+                              )
                             ),
-                            Container(
-                                child:Container(width:70,height:80,decoration: BoxDecoration(
-                                    border: Border.all()
-                                ),child: Center(
-                                  child: Text('+',textAlign: TextAlign.center,),
-                                )
+                            Container(width:70,height:80,
+                                child:OutlineButton(
+                                    onPressed: (){},
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5)
+                                    ),
+                                    child:Text('+',
+                                        style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
                                 )
                             )
                           ],
@@ -323,7 +353,6 @@ class NewOrder extends StatelessWidget{
                   ),
                   Container(
                   width: MediaQuery.of(context).size.width,
-                  color: Colors.blue,
                     child: Form(
                       child:Container(
                         margin: EdgeInsets.all(5),

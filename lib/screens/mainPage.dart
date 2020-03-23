@@ -102,28 +102,28 @@ class menuBar extends State<sideBar> with SingleTickerProviderStateMixin {
                         icon: Image.asset("Assets/newOrder.png"),
                         text: Text(
                           "New Order",
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white,fontSize: 10),
                         ),
                       ),
                       getItem(
                         icon: Image.asset("Assets/tickets.png"),
                         text: Text(
                           "Tickets",
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white,fontSize: 10),
                         ),
                       ),
                       getItem(
                         icon: Image.asset("Assets/settingsIcon.png"),
                         text: Text(
                           "Settings",
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white,fontSize: 10),
                         ),
                       ),
                       getItem(
                         icon: Image.asset("Assets/switchUser.png"),
                         text: Text(
                           "Switch User",
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.white,fontSize: 10),
                         ),
                   )
                     ],
@@ -149,13 +149,10 @@ class menuBar extends State<sideBar> with SingleTickerProviderStateMixin {
       quarterTurns: -1,
       child: Container(
         child: Column(
-
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(width: 40,child: icon)
-          ), text],
+         Container(width: 30,child: icon)
+          , text],
       ),
       ),
     );
@@ -187,6 +184,8 @@ class NewScreen extends StatelessWidget {
 }
 class NewOrder extends StatelessWidget{
   String itemName;
+  List<String> menuOptions = <String> ["Gift Card","Service Charge","Add Guest"];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -215,8 +214,8 @@ class NewOrder extends StatelessWidget{
             ),
             Tab(
               child: Align(
-              alignment: Alignment.center,
-              child: Text('Server Connected'),
+                alignment: Alignment.center,
+                child: Text('Server Connected'),
               )
             ),
           ],
@@ -372,7 +371,45 @@ class NewOrder extends StatelessWidget{
                 ]
             ),
             Container(
-
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                      border: Border.all(),
+                    ),child:Text("MENU",
+                        style: TextStyle(fontSize: 16),textAlign: TextAlign.center),
+                    ),
+                  ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(margin: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Color(0xffD1058A),
+                      borderRadius: BorderRadius.circular(45),
+                    ),
+                    child: PopupMenuButton(
+                      onSelected: choiceAction,
+                      icon: Icon(Icons.more_vert,color:Colors.white),
+                      offset: Offset(0,50),
+                      itemBuilder: (BuildContext context){
+                        return menuOptions.map((option)=>
+                            PopupMenuItem(
+                              value: option,
+                              child: Center(child: Row(
+                                  children:[Icon(Icons.person),Text(option)])),
+                            ),
+                        ).toList();
+                      },
+                    ),
+                  ),
+              )
+                ],
+              ),
             ),
             Container(
 
@@ -383,23 +420,9 @@ class NewOrder extends StatelessWidget{
     );
   }
 
-  List<Widget> buildList(){
-    List<Widget> numberList = [];
-      for (int i = 1; i < 10; i++) {
-        numberList.add(
-        Container(width: 50,
-          margin: EdgeInsets.all(5),
-            padding: EdgeInsets.only(left: 25),
-            decoration: BoxDecoration(
-                border: Border.all(),
-            ),
-            child: Center(child:Text(i.toString(),
-              style: TextStyle(fontSize: 25),textAlign: TextAlign.center),)
-        )
-        );
-    }
-      return numberList;
-  }
+ void choiceAction (String choice){
+
+ }
 }
 class Tickets extends StatelessWidget{
   @override

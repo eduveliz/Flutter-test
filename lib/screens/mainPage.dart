@@ -201,7 +201,7 @@ class NewOrder extends StatelessWidget{
             ) ,
             tabs: <Widget>[
               Tab(
-              child: Align(
+                child: Align(
                 alignment: Alignment.center,
                 child: Text('Custom items'),
               ),
@@ -327,8 +327,8 @@ class NewOrder extends StatelessWidget{
                               child:OutlineButton(
                                onPressed: (){},
                                 shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5)
-    ),
+                                borderRadius: BorderRadius.circular(5)
+                                ),
                                   child:Text('+',
                               style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
                               )

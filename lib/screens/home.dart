@@ -72,7 +72,7 @@ class _LeftWidgetState extends State<LeftWidget>{
       Column(
         children: <Widget>[
           Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(top: 10),
               child: Image.asset('Assets/usuario.png')
           ),
           Divider(
@@ -137,15 +137,16 @@ class ListText extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-                padding: EdgeInsets.all(15),
-                child: Image.asset(icon)
+                padding: EdgeInsets.all(5),
+                child: Container(width: 30,
+                    child:Image.asset(icon))
             ),
             Text(
               name,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 13,
+                fontSize: 10,
               ),
             ),
           ],
@@ -156,6 +157,7 @@ class ListText extends StatelessWidget {
   }
 }
 class RightWidget extends StatefulWidget {
+
   @override
   _RightWidgetState createState() => _RightWidgetState();
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eatos_app/screens/login.dart';
 import 'package:eatos_app/screens/home.dart';
+import 'package:eatos_app/screens/homePage.dart';
 import 'package:eatos_app/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: MainPage()//MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage()//MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

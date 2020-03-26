@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eatos_app/screens/newOrder.dart';
+import 'package:eatos_app/screens/ticketsPage.dart';
+import 'package:eatos_app/screens/settings.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -14,7 +16,7 @@ class _HomePage extends State<HomePage>{
 
   @override
   void initState() {
-    checkIndex = _list.length - 1;
+    checkIndex = 0;
     super.initState();
   }
   void indexChecked(int i) {
@@ -66,10 +68,11 @@ class _HomePage extends State<HomePage>{
           else
             if(checkIndex==1)
               Expanded(
-                child: Text("Holaaaa"))
+                child: Tickets())
             else if(checkIndex==2)
               Expanded(
-                  child: Text("Settings"))
+                  child: Settings()
+              )
           ]
         )
         ),

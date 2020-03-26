@@ -223,110 +223,128 @@ class customItems extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
             //width: MediaQuery.of(context).size.width,
             //color: Colors.greenAccent,
             child: Row(//direction: Axis.horizontal,
               children: <Widget>[
-                Flexible(
-                    child: Column(
-                      children: <Widget>[
-                        Container(//color: Colors.red,
-                            child:
-                            Wrap(children: [
-                              Row( children: <Widget>[
-                                for (int i = 1; i < 4; i++)
-                                  OutlineButton(
-                                      onPressed: (){},
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5)
-                                      ),
-                                      child:Text(i.toString(),
-                                          style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
-                                  )
-                              ],
-                              ),
-                              Row( children: <Widget>[
-                                for (int i = 4; i < 7; i++)
-                                  OutlineButton(
-                                      onPressed: (){},
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5)
-                                      ),
-                                      child:Text(i.toString(),
-                                          style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
-                                  )
-                              ],
-                              ),
-                              Row( children: <Widget>[
-                                for (int i = 7; i < 10; i++)
-                                  OutlineButton(
-                                      onPressed: (){},
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5)
-                                      ),
-                                      child:Text(i.toString(),
-                                          style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
-                                  )
-                              ],
-                              )
-
-                            ],
-                            )
+                Flexible(flex: 3,
+                  child: Column(
+                    children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                          for (int i = 1; i < 4; i++)
+                            Expanded(child:OutlineButton(
+                                onPressed: (){},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(2)
+                                ),
+                                child:Text(i.toString(),
+                                    style: TextStyle(fontSize: 18),textAlign: TextAlign.center)
+                            ))
+                        ],
                         ),
-                        Container(//color: Colors.amber,
-                            child:Row(children: <Widget>[
+                        Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
+                          for (int i = 4; i < 7; i++)
+                            Expanded(child:Container(color: Colors.lightBlue,padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                              child: OutlineButton(
+                                  onPressed: (){},
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2)
+                                  ),
+                                  child:Text(i.toString(),
+                                      style: TextStyle(fontSize: 16),textAlign: TextAlign.center)
+                              ),
+                            )
+                            )
+                        ],
+                        ),
+                        Container(color: Colors.red,child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
+                          for (int i = 7; i < 10; i++)
+                            Padding(padding: EdgeInsets.fromLTRB(4, 0, 4, 0),child:OutlineButton(
+                                onPressed: (){},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(2)
+                                ),
+                                child:Text(i.toString(),
+                                    style: TextStyle(fontSize: 16),textAlign: TextAlign.center)
+                            ) ,)
+                        ],),),
+                    Row(children: <Widget>[
+                      ButtonBar(
+                        alignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          for (int i = 7; i < 10; i++)
+                            Padding(padding: EdgeInsets.fromLTRB(4, 0, 4, 0),child:OutlineButton(
+                                onPressed: (){},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(2)
+                                ),
+                                child:Text(i.toString(),
+                                    style: TextStyle(fontSize: 16),textAlign: TextAlign.center)
+                            ) ,)
+                        ],
+                      )
+                    ],),
+                        Container(width:MediaQuery.of(context).size.width,color: Colors.amber,
+                            child:Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
                               Flexible(
                                 flex:3,
-                                child: OutlineButton(
+                                child: RaisedButton(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5)
                                   ),child:Text('00',
-                                    style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
+                                    style: TextStyle(fontSize: 15),textAlign: TextAlign.center),
                                   onPressed: (){},
                                 ),
                               ),
                               Flexible(
                                 flex: 1,
-                                child: OutlineButton(shape: RoundedRectangleBorder(
+                                child: RaisedButton(shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5)
                                 ),
                                   child:Text('0',
-                                      style: TextStyle(fontSize: 25),textAlign: TextAlign.center),
+                                      style: TextStyle(fontSize: 15),textAlign: TextAlign.center),
                                   onPressed: (){},
                                 ),
                               )
                             ])
                         )],
-                    )
+                  )
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Column(
-                    children: <Widget>[
-                      Container(width:70,height:80,
-                          child:OutlineButton(
-                              onPressed: (){},
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
-                              child:Text('+',
-                                  style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
-                          )
-                      ),
-                      Container(width:70,height:80,
-                          child:OutlineButton(
-                              onPressed: (){},
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
-                              child:Text('+',
-                                  style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
-                          )
-                      )
-                    ],
+                Flexible(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Column(
+                      children: <Widget>[
+                        Container(//width:70,height:80,
+                            child:OutlineButton(
+                                onPressed: (){},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5)
+                                ),
+                                child:Text('+',
+                                    style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
+                            )
+                        ),
+                        Container(//width:70,height:80,
+                            child:OutlineButton(
+                                onPressed: (){},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5)
+                                ),
+                                child:Text('+',
+                                    style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
+                            )
+                        )
+                      ],
+                    ),
                   ),
                 )
+
 
               ],
             ),

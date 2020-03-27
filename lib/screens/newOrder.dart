@@ -112,7 +112,7 @@ class _NewOrden extends State<NewOrden>{
                           margin: EdgeInsets.all(10),
                           child: Wrap(
                             children:[
-                              Text("New",style: TextStyle(color:Color(0xffD1058A)),),
+                              Text("New",style: TextStyle(color:Color(0xffE52897)),),
                               Text(" Guest")
                             ]
                           )
@@ -132,8 +132,8 @@ class _NewOrden extends State<NewOrden>{
                           Expanded(child:
                             Container(
                               padding: EdgeInsets.all(2),
-                              decoration: BoxDecoration(color: Color(0xffD1058A),
-                              border: Border.all(color:Color(0xffD1058A))),
+                              decoration: BoxDecoration(color: Color(0xffE52897),
+                              border: Border.all(color:Color(0xffE52897))),
                               child:Text("Dine-In",
                             style: TextStyle(fontSize: 12,color: Colors.white),textAlign: TextAlign.center),
                             )
@@ -142,25 +142,25 @@ class _NewOrden extends State<NewOrden>{
                             Container(
                               padding: EdgeInsets.all(2),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xffD1058A))),
+                                border: Border.all(color: Color(0xffE52897))),
                               child:Text("To-Go",
-                                style: TextStyle(fontSize: 12,color: Color(0xffD1058A)),textAlign: TextAlign.center),
+                                style: TextStyle(fontSize: 12,color: Color(0xffE52897)),textAlign: TextAlign.center),
                           )),
                           Expanded(child:
                             Container(
                               padding: EdgeInsets.all(2),
                               decoration: BoxDecoration(
-                                border: Border.all(color:Color(0xffD1058A))),
+                                border: Border.all(color:Color(0xffE52897))),
                               child:Text("Deliver",
-                                style: TextStyle(fontSize: 12,color: Color(0xffD1058A)),textAlign: TextAlign.center),
+                                style: TextStyle(fontSize: 12,color: Color(0xffE52897)),textAlign: TextAlign.center),
                           )),
                           Expanded(child:
                           Container(
                             padding: EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xffD1058A))),
+                                border: Border.all(color: Color(0xffE52897))),
                             child:Text("Banque",
-                                style: TextStyle(fontSize: 12,color: Color(0xffD1058A)),textAlign: TextAlign.center),
+                                style: TextStyle(fontSize: 12,color: Color(0xffE52897)),textAlign: TextAlign.center),
                           ))
                         ]
                       ),
@@ -190,7 +190,7 @@ class TextTab extends StatelessWidget {
       padding: EdgeInsets.all(5) ,
       key: globalKey,
       decoration: BoxDecoration(
-        color: checked ? Color(0xffD1058A) : Color(0xff565962),
+        color: checked ? Color(0xffE52897) : Color(0xff565962),
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(5),topRight: Radius.circular(5)),
       ),
@@ -247,7 +247,7 @@ class customItems extends StatelessWidget {
                         ),
                         Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
                           for (int i = 4; i < 7; i++)
-                            Expanded(child:Container(color: Colors.lightBlue,padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                            Expanded(child:Container(padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
                               child: OutlineButton(
                                   onPressed: (){},
                                   shape: RoundedRectangleBorder(
@@ -260,67 +260,61 @@ class customItems extends StatelessWidget {
                             )
                         ],
                         ),
-                        Container(color: Colors.red,child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
-                          for (int i = 7; i < 10; i++)
-                            Padding(padding: EdgeInsets.fromLTRB(4, 0, 4, 0),child:OutlineButton(
+                      Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
+                        for (int i = 7; i < 10; i++)
+                          Expanded(child:Container(padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                            child: OutlineButton(
                                 onPressed: (){},
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(2)
                                 ),
                                 child:Text(i.toString(),
                                     style: TextStyle(fontSize: 16),textAlign: TextAlign.center)
-                            ) ,)
-                        ],),),
-                    Row(children: <Widget>[
-                      ButtonBar(
-                        alignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          for (int i = 7; i < 10; i++)
-                            Padding(padding: EdgeInsets.fromLTRB(4, 0, 4, 0),child:OutlineButton(
-                                onPressed: (){},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(2)
-                                ),
-                                child:Text(i.toString(),
-                                    style: TextStyle(fontSize: 16),textAlign: TextAlign.center)
-                            ) ,)
-                        ],
-                      )
-                    ],),
-                        Container(width:MediaQuery.of(context).size.width,color: Colors.amber,
-                            child:Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            ),
+                          )
+                          )
+                      ],
+                      ),
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                              Flexible(
-                                flex:3,
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)
-                                  ),child:Text('00',
-                                    style: TextStyle(fontSize: 15),textAlign: TextAlign.center),
-                                  onPressed: (){},
-                                ),
-                              ),
-                              Flexible(
-                                flex: 1,
-                                child: RaisedButton(shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)
-                                ),
-                                  child:Text('0',
+                              Expanded(
+                                flex:7,
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(5, 0, 10, 0),
+                                  child: OutlineButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5)
+                                    ),child:Text('00',
                                       style: TextStyle(fontSize: 15),textAlign: TextAlign.center),
-                                  onPressed: (){},
-                                ),
+                                    onPressed: (){},
+                                  )
+                                )
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                    margin: EdgeInsets.fromLTRB(2, 0, 5, 0),
+                                    child: OutlineButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5)
+                                      ),child:Text('0',
+                                        style: TextStyle(fontSize: 15),textAlign: TextAlign.center),
+                                      onPressed: (){},
+                                    )
+                                )
                               )
                             ])
-                        )],
+                        ],
                   )
                 ),
                 Flexible(
                   flex: 1,
-                  child: Align(
+                  child:
+                  Align(
                     alignment: Alignment.centerRight,
-                    child: Column(
+                    child: Column(mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        Container(//width:70,height:80,
+                        Container(width:90,height:90,margin: EdgeInsets.only(bottom: 4),
                             child:OutlineButton(
                                 onPressed: (){},
                                 shape: RoundedRectangleBorder(
@@ -330,7 +324,7 @@ class customItems extends StatelessWidget {
                                     style: TextStyle(fontSize: 15),textAlign: TextAlign.center)
                             )
                         ),
-                        Container(//width:70,height:80,
+                        Container(width:90,height:90,
                             child:OutlineButton(
                                 onPressed: (){},
                                 shape: RoundedRectangleBorder(
@@ -393,25 +387,26 @@ class menuView extends StatelessWidget{
           ),
           Align(
             alignment: Alignment.topRight,
-            child: Container(margin: EdgeInsets.all(5),
+            child: Container(width: 30,height: 30,
+              margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: Color(0xffD1058A),
+                color: Color(0xffE52897),
                 borderRadius: BorderRadius.circular(45),
               ),
-              child: PopupMenuButton(
-                onSelected: choiceAction,
-                icon: Icon(Icons.more_vert,color:Colors.white),
-                offset: Offset(0,50),
-                itemBuilder: (BuildContext context){
-                  return menuOptions.map((option)=>
-                      PopupMenuItem(
-                        value: option,
-                        child: Center(child: Row(
-                            children:[Icon(Icons.person),Text(option)])),
-                      ),
-                  ).toList();
-                },
-              ),
+                child: PopupMenuButton(padding: EdgeInsets.all(2),
+                  onSelected: choiceAction,
+                  icon: Icon(Icons.more_vert,color:Colors.white,size: 15,),
+                  offset: Offset(0,40),
+                  itemBuilder: (BuildContext context){
+                    return menuOptions.map((option)=>
+                        PopupMenuItem(
+                          value: option,
+                          child: Center(child: Row(
+                              children:[Icon(Icons.person),Text(option)])),
+                        ),
+                    ).toList();
+                  },
+                ),
             ),
           )
         ],

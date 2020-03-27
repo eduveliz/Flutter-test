@@ -86,7 +86,7 @@ class menuBar extends State<sideBar> with SingleTickerProviderStateMixin {
                   child: TabBar(
                     //unselectedLabelColor: Colors.blueGrey ,
                     indicator:BoxDecoration(
-                        color: Color(0xffD1058A),
+                        color: Color(0xffE52897),
                     ),
                     controller: _tabController,
                     tabs: [
@@ -197,7 +197,7 @@ class NewOrder extends StatelessWidget{
             indicator:BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-            color: Color(0xffD1058A)
+            color: Color(0xffE52897)
             ) ,
             tabs: <Widget>[
               Tab(
@@ -389,7 +389,7 @@ class NewOrder extends StatelessWidget{
                   alignment: Alignment.topRight,
                   child: Container(margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                      color: Color(0xffD1058A),
+                      color: Color(0xffE52897),
                       borderRadius: BorderRadius.circular(45),
                     ),
                     child: PopupMenuButton(

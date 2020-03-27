@@ -5,7 +5,61 @@ class Tickets extends StatefulWidget{
   _Tickets createState() => _Tickets();
 }
 
-class _Tickets extends State<Tickets>{
+class _Tickets extends State<Tickets> with SingleTickerProviderStateMixin{
+  bool isOpened = false;
+  AnimationController _animationController;
+  Animation<Color> _buttonColor;
+  Animation<double> _animateIcon;
+  Animation<double> _translateButton;
+  Curve _curve = Curves.easeOut;
+  double _fabHeight = 30.0;
+
+  void animate() {
+    if (!isOpened) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+    isOpened = !isOpened;
+  }
+  @override
+  initState() {
+    _animationController =
+    AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+      ..addListener(() {
+        setState(() {});
+      });
+    _animateIcon =
+        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _buttonColor = ColorTween(
+      begin: Color(0xffE52897),
+      end: Color(0xffE52897),
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(
+        0.00,
+        1.00,
+        curve: Curves.linear,
+      ),
+    ));
+    _translateButton = Tween<double>(
+      begin: _fabHeight,
+      end: -14.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(
+        0.0,
+        0.75,
+        curve: _curve,
+      ),
+    ));
+    super.initState();
+  }
+  @override
+  dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,9 +75,10 @@ class _Tickets extends State<Tickets>{
                 Container(width: MediaQuery.of(context).size.width,
                   //color: Colors.amber,
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Flexible(child:Container(child: RaisedButton(onPressed: (){},
+                        Expanded(child:Container(width: 60,
+                            child: RaisedButton(onPressed: (){},padding: EdgeInsets.all(0),
                             color: Colors.grey,
                             child: Wrap(
                               children: <Widget>[
@@ -34,7 +89,8 @@ class _Tickets extends State<Tickets>{
                               ],
                             ))
                         )),
-                        Flexible(child:Container(child: RaisedButton(onPressed: (){},
+                        Expanded(child:Container(width: 70,
+                            child: RaisedButton(onPressed: (){},
                             color: Colors.grey,
                             child: Wrap(
                               children: <Widget>[
@@ -45,10 +101,11 @@ class _Tickets extends State<Tickets>{
                               ],
                             ))
                         )),
-                        Flexible(child:Container(child: RaisedButton(onPressed: (){},
+                        Expanded(child:Container(width: 55,
+                            child: RaisedButton(onPressed: (){},padding: EdgeInsets.all(0),
                             color: Colors.grey,
-                            child: Wrap(
-                              children: <Widget>[
+                              child: Wrap(direction: Axis.vertical,
+                                children: <Widget>[
                                 Center(child:Text(
                                   "TYPE",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
                                 )),
@@ -56,18 +113,20 @@ class _Tickets extends State<Tickets>{
                               ],
                             ))
                         )),
-                        Flexible(child:Container(child: RaisedButton(onPressed: (){},
-                            color: Colors.grey,
-                            child: Wrap(
-                              children: <Widget>[
-                                Center(child:Text(
-                                  "STATUS",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                )),
-                                Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                              ],
-                            ))
+                        Expanded(child:Container(width: 70,
+                            child: RaisedButton(onPressed: (){},padding: EdgeInsets.all(0),
+                                color: Colors.grey,
+                                child: Wrap(direction: Axis.vertical,
+                                  children: <Widget>[
+                                    Center(child:Text(
+                                      "STATUS",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                    )),
+                                    Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                  ],
+                                ))
                         )),
-                        Flexible(child:Container(child: RaisedButton(onPressed: (){},
+                        Expanded(child:Container(
+                            child: RaisedButton(onPressed: (){},
                           color: Colors.grey,
                             child: Wrap(
                               children: <Widget>[
@@ -78,7 +137,7 @@ class _Tickets extends State<Tickets>{
                               ],
                           ))
                         )),
-                        Flexible(child:Container(//color: Colors.grey,
+                        Expanded(child:Container(//color: Colors.grey,
                            child: MaterialButton(onPressed: (){},
                             color: Colors.grey,
                               child: Wrap(
@@ -94,45 +153,156 @@ class _Tickets extends State<Tickets>{
                               ],
                             ))
                         )),
-                        Flexible(child:Container(
-                            child: FlatButton(onPressed: (){},
-                            color: Colors.grey,
-                              child: Wrap(
-                                children: <Widget>[
-                                  Center(child:
-                                    FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: Text(
-                                      "PAYMENT",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                    ),
-                                  )),
-                                  Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                                ],
-                              ))
-                        )),
+                        Expanded(child:
+                                Container(child: FlatButton(onPressed: (){},padding: EdgeInsets.all(0),
+                                    color: Colors.grey,
+                                    child: Wrap(
+                                      children: <Widget>[
+                                        Center(child:
+                                        FittedBox(
+                                          fit: BoxFit.contain,
+                                          child: Text(
+                                            "PAYMENT",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                          ),
+                                        )),
+                                        Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                      ],
+                                    )),)
+                            ),
+                        Container(width: 25,
+                          margin: EdgeInsets.all(2),//color: Colors.red,
+                          child: FloatingActionButton(
+                            backgroundColor: _buttonColor.value,
+                            onPressed: animate,
+                            tooltip: 'Toggle',
+                            child: AnimatedIcon(
+                              icon: AnimatedIcons.menu_close,
+                              progress: _animateIcon,
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
                 Expanded(child: Container(
-                  child:
-                  Row(
-                    children: <Widget>[
-                      RaisedButton(onPressed: (){},
-                          color: Colors.grey,
-                          child:  Text(
-                                  "T",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                ),
-                              ),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.red
-                        ),
-                        child: Icon(Icons.more_vert),
-                      )
-                    ],
+                  child:Transform(
+                    transform: Matrix4.translationValues(
+                      0.0,
+                      _translateButton.value,
+                      0.0,
+                    ),
+                    child: Container(margin: EdgeInsets.all(5),
+                        child:Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Expanded(child: Container(
+                                  margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.only(left:10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(18)
+                                  ),
+                                  child: TextFormField(style: TextStyle(fontSize: 12),
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(5),
+                                        hintText:'Order type' ,
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                )),
+                                Expanded(child: Container(
+                                  margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.only(left:10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(18)
+                                  ),
+                                  child: TextFormField(style: TextStyle(fontSize: 12),
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(5),
+                                        hintText:'Order type' ,
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                )),
+                                Expanded(child: Container(
+                                  margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.only(left:10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(18)
+                                  ),
+                                  child: TextFormField(style: TextStyle(fontSize: 12),
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(5),
+                                        hintText:' ' ,
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                ))
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Expanded(child: Container(
+                                  margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.only(left:10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(18)
+                                  ),
+                                  child: TextFormField(style: TextStyle(fontSize: 12),
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(5),
+                                        hintText:'Order type' ,
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                )),
+                                Expanded(child: Container(
+                                  margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.only(left:10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(18)
+                                  ),
+                                  child: TextFormField(style: TextStyle(fontSize: 12),
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(5),
+                                        hintText:'Order Status' ,
+                                        border: InputBorder.none
+                                    ),
+                                  ),
+                                )),
+                                Flexible(child: Container(
+                                  margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.only(left:10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(18)
+                                  ),
+                                  child: Wrap(direction: Axis.horizontal,
+                                    children: <Widget>[
+                                      TextFormField(style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.all(5),
+                                            hintText:'Payment' ,
+                                            border: InputBorder.none
+                                        ),
+                                      ), Icon(Icons.expand_more,size: 15,)
+                                    ],
+                                  ),
+                                ))
+                              ],
+                            )
+                          ],
+                        )
+
+                    ))
                   ),
-                ),)
+
+                )
               ],
             )
             ,
@@ -164,7 +334,7 @@ class _Tickets extends State<Tickets>{
                               children: <Widget>[
                                 Wrap(direction: Axis.horizontal,
                                     children:[
-                                      Text("New",style: TextStyle(color:Color(0xffD1058A),fontWeight: FontWeight.bold),),
+                                      Text("New",style: TextStyle(color:Color(0xffE52897),fontWeight: FontWeight.bold),),
                                       Text(" Guest")
                                     ]
                                 ) ,
@@ -188,47 +358,6 @@ class _Tickets extends State<Tickets>{
                     ],
                   ),
 
-                  Container(//color: Colors.red,
-                    height: 23,
-                    child:
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(child:
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(color: Color(0xffD1058A),
-                                border: Border.all(color:Color(0xffD1058A))),
-                            child:Text("Dine-In",
-                                style: TextStyle(fontSize: 12,color: Colors.white),textAlign: TextAlign.center),
-                          )
-                          ),
-                          Expanded(child:
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xffD1058A))),
-                            child:Text("To-Go",
-                                style: TextStyle(fontSize: 12,color: Color(0xffD1058A)),textAlign: TextAlign.center),
-                          )),
-                          Expanded(child:
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                border: Border.all(color:Color(0xffD1058A))),
-                            child:Text("Deliver",
-                                style: TextStyle(fontSize: 12,color: Color(0xffD1058A)),textAlign: TextAlign.center),
-                          )),
-                          Expanded(child:
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xffD1058A))),
-                            child:Text("Banque",
-                                style: TextStyle(fontSize: 12,color: Color(0xffD1058A)),textAlign: TextAlign.center),
-                          ))
-                        ]
-                    ),
-                  ),
                   Expanded(
                     child: Container(//color: Colors.greenAccent,
                       child: Center(

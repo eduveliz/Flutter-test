@@ -94,7 +94,7 @@ class ListText extends StatelessWidget {
       width:  MediaQuery.of(context).size.width,
       key: globalKey,
       decoration: BoxDecoration(
-        color: checked ? Color(0xffD1058A): Color(0xff565962),
+        color: checked ? Color(0xffC61B7F): Color(0xff565962),
         border: Border(
           bottom: BorderSide(),
         ),

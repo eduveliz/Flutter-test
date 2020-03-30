@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eatos_app/screens/profilePage.dart';
 
 class Settings extends StatefulWidget{
   @override
@@ -10,8 +11,8 @@ class _Settings extends State<Settings>{
     "Add-Ons","Products","Ingredients","Groups", "Employee","Schedule", "Gratuity","Taxes","Discounts",
     "Service Charge","Card Reader","Cash Managment","Payment Options", "Server","Printers","Cash Register","Printer Advanced"
   ];
-  List<StatelessWidget> _listScreens = [PageGeneral(),Profile(),EndDay(),Profile(),Menu(),Profile(),Modifiers(),Profile(),Profile(),Menu(),
-    Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu()];
+  List<StatelessWidget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),Menu(),Menu(),Menu(),Modifiers(),Menu(),Menu(),Menu(),
+    Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Service(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu()];
   int checkIndex = 0;
 
   void indexChecked(int i) {
@@ -29,8 +30,8 @@ class _Settings extends State<Settings>{
       body: Container(
         child: Row(
           children: <Widget>[
-            Container(
-              width: 120,
+            Container(height: MediaQuery.of(context).size.height,
+              width: 110,
               color: Color(0xff565962),
               child: ListView(
                 children: <Widget>[
@@ -322,26 +323,26 @@ class PageGeneral extends StatelessWidget{
                   ],
                 ))),
             Expanded(child:
-            Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                child: Wrap(
-                  children: <Widget>[
-                    Text("STATE",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                    Container(
-                      //margin: EdgeInsets.all(5),
-                      padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(18)
-                      ),
-                      child: TextFormField(
-                        style: TextStyle(fontSize: 12),
-                        decoration: InputDecoration(contentPadding: EdgeInsets.all(5),
-                            hintText:'M' ,
-                            border: InputBorder.none
+              Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  child: Wrap(
+                    children: <Widget>[
+                      Text("STATE",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                      Container(
+                        //margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(18)
                         ),
-                      ),
-                    )
-                  ],
+                        child: TextFormField(
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(contentPadding: EdgeInsets.all(5),
+                              hintText:'M' ,
+                              border: InputBorder.none
+                          ),
+                        ),
+                      )
+                    ],
                 ))),
             Expanded(child:
             Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -380,19 +381,7 @@ class PageGeneral extends StatelessWidget{
     );
   }
 }
-class Profile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-  return Container(
-    padding: EdgeInsets.all(10),
-    child: ListView(
-      children: <Widget>[
-        Text("PROFILE",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700),),
-      ],
-    ),
-  );
-  }
-}
+
 class EndDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -414,6 +403,72 @@ class Modifiers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Text(" MENU"),
+    );
+  }
+}
+class Service extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(//color: Colors.green,
+      padding: EdgeInsets.all(15),
+      child:ListView(
+        children: <Widget>[
+        Text("SERVICE CHARGE",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)),
+        Container(padding: EdgeInsets.all(10),
+          child:  Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                      padding: EdgeInsets.fromLTRB(10, 8, 8, 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(18)
+                      ),
+                      margin: EdgeInsets.all(10),
+                      child: Wrap(children: <Widget>[
+                        Center(child:Icon(Icons.search,size: 15,)),
+                        Text("  Search by service              ",style: TextStyle(color: Colors.grey),)
+                      ])
+                      ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child:Container(
+                    child: FlatButton(shape:RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(15),
+                      ) ,
+                      color: Color(0xffE52897),
+                      onPressed: (){},
+                      child: Text("+ ADD SERVICE CHARGE",style: TextStyle(color: Colors.white),),
+                    ),
+                  ),
+                )
+              ]
+          ),
+        ),
+          Container(
+            padding: EdgeInsets.fromLTRB(5, 15, 5, 15),
+            child: Table(
+              border: TableBorder.all(color: Color(0xFFC6BFC3)),
+              children: [
+                TableRow(
+                  children: [
+                    Container(padding:EdgeInsets.all(10),color: Color(0xFFC6BFC3),child: Text("SERVICE CHARGE NAME",style: TextStyle(fontSize: 10),textAlign: TextAlign.center,)),
+                    Container(padding:EdgeInsets.all(10),color:Color(0xFFC6BFC3),child: Text("PERCENTAGE",textAlign: TextAlign.center,style: TextStyle(fontSize: 10)))
+                  ]
+                ),
+                TableRow(
+                  children: [
+                    Container(padding:EdgeInsets.all(10),child: Center(child: Text("A")),),
+                    Container(padding:EdgeInsets.all(10),child: Center(child: Text("10%")))
+                  ]
+                )
+              ],
+            ),
+          )
+    ])
     );
   }
 }

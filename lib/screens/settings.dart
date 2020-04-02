@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eatos_app/screens/profilePage.dart';
+import 'package:eatos_app/screens/menuPage.dart';
 
 class Settings extends StatefulWidget{
   @override
@@ -11,7 +13,7 @@ class _Settings extends State<Settings>{
     "Add-Ons","Products","Ingredients","Groups", "Employee","Schedule", "Gratuity","Taxes","Discounts",
     "Service Charge","Card Reader","Cash Managment","Payment Options", "Server","Printers","Cash Register","Printer Advanced"
   ];
-  List<StatelessWidget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),Menu(),Menu(),Menu(),Modifiers(),Menu(),Menu(),Menu(),
+  List<StatelessWidget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),Menu(),MenuPage(),Menu(),Modifiers(),Menu(),Menu(),Menu(),
     Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Service(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu()];
   int checkIndex = 0;
 
@@ -373,9 +375,43 @@ class PageGeneral extends StatelessWidget{
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text("SCHEDULE INFORMATION",style: TextStyle(color: Color(0xffE52897),fontSize: 12),),
-              )
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child:Container(
+                child: FlatButton(shape:RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(15),
+                  ) ,
+                  color: Color(0xffE52897),
+                  onPressed: (){},
+                  child: Text("+ ADD A NEW SCHEDULE",style: TextStyle(color: Colors.white),),
+                  ),
+                  ))
             ],
-          )
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(5, 15, 5, 15),
+            child: Table(
+              border: TableBorder.symmetric(outside:BorderSide(color:Colors.grey[200]) ),
+              children: [
+                TableRow(
+                    children: [
+                      Container(padding:EdgeInsets.all(10),color: Color(0xFFC6BFC3),child: Text("SCHEDULE NAME",style: TextStyle(fontSize: 10),textAlign: TextAlign.center,)),
+                      Container(padding:EdgeInsets.all(10),color:Color(0xFFC6BFC3),child: Text("DURATION",textAlign: TextAlign.center,style: TextStyle(fontSize: 10))),
+                      Container(padding:EdgeInsets.all(10),color:Color(0xFFC6BFC3),child: Text("DAYS",textAlign: TextAlign.center,style: TextStyle(fontSize: 10)))
+                    ]
+                ),
+                TableRow(
+                    children: [
+                      Container(padding:EdgeInsets.all(10),child: Center(child: Text("TestSchedule")),),
+                      Container(padding:EdgeInsets.all(10),child: Center(child: Text("02/10/2020"))),
+                      Container(padding:EdgeInsets.all(10),child: Center(child: Text("Mondays, Tuesday")))
+                    ]
+                ),
+              ],
+            ),
+          ),
+          Divider(color: Color(0xffE52897),),
         ],
       ),
     );
@@ -386,8 +422,166 @@ class EndDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Profile"),
-    );
+       child: ListView(
+          padding: EdgeInsets.all(20),
+          children: <Widget>[
+           Row(children: <Widget>[Padding(padding: EdgeInsets.only(bottom: 10),child: Text("END OF DAY",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)))],),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                    child: Text("START END OF DAY",style: TextStyle(color: Color(0xffE52897),fontSize: 10,fontWeight: FontWeight.bold)),
+                  ),
+                  Align(alignment: Alignment.centerRight,
+                      child:FlatButton(onPressed: (){}, child: Text("START END OF DAY"),color: Color(0xffE52897),textColor: Colors.white,
+                          shape:RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10),
+                          ))
+                  )
+                ]),
+            Divider(color: Colors.grey),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                    child: Text("AUTOMIC START END OF DAY",style: TextStyle(fontSize: 10))
+                  ),
+                  Align(alignment: Alignment.centerRight,
+                     child: Container(width: 70,height: 35,padding: EdgeInsets.all(0),
+                       decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.all((Radius.circular(30)))),
+                       child: Stack(
+                         children: <Widget>[
+                           Align( alignment: Alignment.centerRight,
+                            child: Container(
+                             width: 35,height: 35,
+                              decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                           ),
+                         )],
+                       ),
+                     )
+                  )
+                ]),
+            Divider(color: Colors.grey),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                      child: Text("START END OF DAY",style: TextStyle(fontSize: 10))
+                  ),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child:
+                      Container(width: 85,height: 25,padding: EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.all(Radius.circular(30))),
+                        child: Stack(
+                          children: <Widget>[
+                            Align( alignment: Alignment.centerRight,
+                              child: Container(
+                                width: 40,height: 25,
+                                decoration: BoxDecoration(color: Colors.grey,
+                                border:Border(
+                                  left: BorderSide(color: Colors.black)
+                                ),//borderRadius: BorderRadius.only(topRight:Radius.circular(30),bottomRight: Radius.circular(30))
+                                ),child: Icon(Icons.history)
+                              ),
+                            )],
+                        ),
+                      )
+                  )
+                ]),
+            Divider(color: Color(0xffE52897)),
+            Text("AUTOMATIC TASKS",style: TextStyle(color: Color(0xffE52897),fontSize: 10,fontWeight: FontWeight.bold)),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                      child: Text("AUTOMIC RUN END OF DAY TASKS",style: TextStyle(fontSize: 10))
+                  ),
+                  Align(alignment: Alignment.centerRight,
+                      child: Container(width: 70,height: 35,padding: EdgeInsets.all(0),
+                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.all((Radius.circular(30)))),
+                        child: Stack(
+                          children: <Widget>[
+                            Align( alignment: Alignment.centerRight,
+                              child: Container(
+                                width: 35,height: 35,
+                                decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                              ),
+                            )],
+                        ),
+                      )
+                  )
+                ]),
+            Divider(color: Colors.grey),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                      child: Text("RUN TASKS AT",style: TextStyle(fontSize: 10))
+                  ),
+                  Align(alignment: Alignment.centerRight,
+                      child: Container(width: 70,height: 35,padding: EdgeInsets.all(0),
+                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.all((Radius.circular(30)))),
+                        child: Stack(
+                          children: <Widget>[
+                            Align( alignment: Alignment.centerRight,
+                              child: Container(
+                                width: 35,height: 35,
+                                decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                              ),
+                            )],
+                        ),
+                      )
+                  )
+                ]),
+            Divider(color: Colors.grey),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                      child: Text("CLOCK OUT EMPLOYEES",style: TextStyle(fontSize: 10))
+                  ),
+                  Align(alignment: Alignment.centerRight,
+                      child: Container(width: 70,height: 35,padding: EdgeInsets.all(0),
+                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.all((Radius.circular(30)))),
+                        child: Stack(
+                          children: <Widget>[
+                            Align( alignment: Alignment.centerRight,
+                              child: Container(
+                                width: 35,height: 35,
+                                decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                              ),
+                            )],
+                        ),
+                      )
+                  )
+                ]),
+            Divider(color: Colors.grey),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(alignment: Alignment.centerLeft,
+                      child: Text("CLOSE DRAWERS",style: TextStyle(fontSize: 10))
+                  ),
+                  Align(alignment: Alignment.centerRight,
+                      child: Container(width: 70,height: 35,padding: EdgeInsets.all(0),
+                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.all((Radius.circular(30)))),
+                        child: Stack(
+                          children: <Widget>[
+                            Align( alignment: Alignment.centerRight,
+                              child: Container(
+                                width: 35,height: 35,
+                                decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                              ),
+                            )],
+                        ),
+                      )
+                  )
+                ]),
+            Divider(color: Colors.grey),
+
+            ],
+          ),
+    )
+      ;
+
   }
 }
 class Menu extends StatelessWidget {

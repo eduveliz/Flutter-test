@@ -10,6 +10,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login>{
   static final _formKey = GlobalKey<FormState>();
+   TextEditingController emailController =  TextEditingController();
+   TextEditingController passwordController =  TextEditingController();
   String email;
   String password;
 
@@ -17,6 +19,7 @@ class _LoginState extends State<Login>{
   Widget build(BuildContext context) {
 
     Future signIn(String email, String password) async {
+      print(email);
       Map <String,String> data = {
         'username': email,
         'password' : password
@@ -86,14 +89,11 @@ class _LoginState extends State<Login>{
         )
     );
 
-    final TextEditingController emailController = new TextEditingController();
-    final TextEditingController passwordController = new TextEditingController();
-
     final emailField = Padding(
         padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
         child: Container(
             color: Color(0xfff5f5f5),
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width/2,
             child:Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child:TextField(
@@ -118,11 +118,11 @@ class _LoginState extends State<Login>{
     final passwordField = Padding(
         padding:EdgeInsets.fromLTRB(25, 0, 25, 0),
         child: Container(
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width/2,
             color: Color(0xfff5f5f5),
             child:Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextField(
+                child: TextFormField(
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
@@ -148,7 +148,53 @@ class _LoginState extends State<Login>{
       child: Form(
         key: _formKey,
         child: Column(
-          children: <Widget>[emailField, passwordField],
+          children: <Widget>[Padding(
+              padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+              child: Container(
+                  color: Color(0xfff5f5f5),
+                  width: MediaQuery.of(context).size.width/2,
+                  child:Padding(
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child:TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        //onSaved: (value)=> email = value,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          labelText: 'Email or Mobile',
+                          labelStyle: TextStyle(color: Colors.blueGrey),
+                        ),
+                        //keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(color: Colors.blueGrey),
+                        cursorColor: Colors.blueGrey,
+                      )
+                  )
+              )
+          ),
+            Container(
+                width: MediaQuery.of(context).size.width/2,
+                color: Color(0xfff5f5f5),
+                child:Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                      //controller: passwordController,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        labelStyle: TextStyle(color: Colors.blueGrey),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                      ),
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(color: Colors.blueGrey),
+                      cursorColor: Colors.blueGrey,
+                      obscureText: true,
+                    )
+                )
+            )],
         ),
       ),
     );
@@ -156,9 +202,9 @@ class _LoginState extends State<Login>{
     final loginBtn = Padding(
       padding: EdgeInsets.all(25),
       child: Container(
-          margin: EdgeInsets.only(top: 40.0),
+          margin: EdgeInsets.all(30),
           height: 60.0,
-          width: MediaQuery.of(context).size.width,
+          //width: MediaQuery.of(context).size.width/3,
           child: MaterialButton(
             onPressed: (){signIn(emailController.text,passwordController.text);},
             elevation: 5.0,

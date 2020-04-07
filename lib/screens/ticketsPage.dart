@@ -64,6 +64,7 @@ class _Tickets extends State<Tickets> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+        resizeToAvoidBottomPadding: true,
         backgroundColor: Color(0xffF7F7F7),
       body: Row(
         children: <Widget>[

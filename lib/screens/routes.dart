@@ -1,7 +1,6 @@
 import 'package:eatos_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:eatos_app/screens/login.dart';
-import 'package:eatos_app/screens/home.dart';
 
 final routes = {
   //'/login': (BuildContext context) => new LoginScreen(),

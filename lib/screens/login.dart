@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eatos_app/screens/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,6 +21,7 @@ class _LoginState extends State<Login>{
 
     Future signIn(String email, String password) async {
       print(email);
+      print(password);
       Map <String,String> data = {
         'username': email,
         'password' : password
@@ -33,14 +35,9 @@ class _LoginState extends State<Login>{
       print(jsonData);
       var isLogin = jsonData['success'];
       if(isLogin == 1){
-        return Fluttertoast.showToast(
-            msg: "Login succeed",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.TOP,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.greenAccent,
-            textColor: Colors.white,
-            fontSize: 16.0
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
         );
       }else{
         Fluttertoast.showToast(
@@ -53,12 +50,6 @@ class _LoginState extends State<Login>{
             fontSize: 16.0
         );
       }
-
-      /*
-      setState(() {
-        var dataLogin = json.decode(response.body);
-        var isLogin = dataLogin['success'];
-      });*/
     }
 
     final pageTitle = Container(
@@ -177,7 +168,7 @@ class _LoginState extends State<Login>{
                 child:Padding(
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: TextFormField(
-                      //controller: passwordController,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         labelStyle: TextStyle(color: Colors.blueGrey),

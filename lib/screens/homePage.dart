@@ -9,9 +9,9 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePage extends State<HomePage>{
-  List<String> _list = ["New Orden", "Tickets", "Settings", "Switch user",""];
-  List<GlobalKey> _keys = [GlobalKey(), GlobalKey(), GlobalKey(), GlobalKey(), GlobalKey(),];
-  List<String> _icons = ["Assets/newOrder.png", "Assets/tickets.png", "Assets/settingsIcon.png", "Assets/switchUser.png","Assets/titulo.png"];
+  List<String> _list = ["New Orden", "Tickets", "Settings", "Switch user"];
+  List<GlobalKey> _keys = [GlobalKey(), GlobalKey(), GlobalKey(), GlobalKey()];
+  List<String> _icons = ["Assets/newOrder.png", "Assets/tickets.png", "Assets/settingsIcon.png", "Assets/switchUser.png"];
   int checkIndex = 0;
 
   @override
@@ -32,16 +32,18 @@ class _HomePage extends State<HomePage>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      //resizeToAvoidBottomPadding: true,
       body: SafeArea(
         child: Row(
           children: <Widget>[
           Container(
+            height: MediaQuery.of(context).size.height,
             width: 55,
             color: Color(0xff565962),
-            child: Column(
+            child: Column(//mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                    decoration: BoxDecoration(
+                        decoration: BoxDecoration(
                         border: Border(
                           bottom: BorderSide(),
                         )
@@ -50,20 +52,30 @@ class _HomePage extends State<HomePage>{
                     padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                     child: Image.asset('Assets/usuario.png')
                 ),
-                for (int i = 0; i < _list.length; i++)
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: ()=> indexChecked(i),
-                      child: ListText(
-                    _list[i], _keys[i], _icons[i], checkIndex == i)
-                    )// &&
-                  )
+                Container(child:
+                  ListView(shrinkWrap: true,
+                  children: <Widget>[
+                    for (int i = 0; i < _list.length; i++)
+                     Container(
+                         child: GestureDetector(
+                             onTap: ()=> indexChecked(i),
+                             child: ListText(
+                                 _list[i], _keys[i], _icons[i], checkIndex == i)
+                         )// &&
+                     )
+                 ],
+               )),
+                Stack(
+                  children: <Widget>[ Image.asset('Assets/titulo.png')],
+                )
               ],//crossAxisAlignment: CrossAxisAlignment.center
             ),
           ),
           if(checkIndex==0)
             Expanded(
-              child: NewOrden(),
+              child: Scaffold(
+                body: NewOrden(),
+              )
             )
           else
             if(checkIndex==1)
@@ -90,7 +102,7 @@ class ListText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container(height: MediaQuery.of(context).size.height/6,
       width:  MediaQuery.of(context).size.width,
       key: globalKey,
       decoration: BoxDecoration(
@@ -100,25 +112,24 @@ class ListText extends StatelessWidget {
         ),
       ),
       //quarterTurns: 3,
-
-      child: Center(child:Wrap(
-        //mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-              padding: EdgeInsets.all(5),
-              child: Center(
-                child:Container(width: 30,
-                  child:Image.asset(icon))
-              )
-          ),
-          Center(child:Text(
-            name,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-            ),)
-          ),
+      child: Center(
+        child:Wrap(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5),
+                child: Center(
+                  child:Container(width: 28,
+                    child:Image.asset(icon))
+                )
+            ),
+            Center(child:Text(
+              name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+              ),)
+            ),
         ],
       ),
       )

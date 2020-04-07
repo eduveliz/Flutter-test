@@ -4,32 +4,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ProfilePage extends StatelessWidget  {
   final db = Firestore.instance;
 
-  TextEditingController firstNameController;
-  TextEditingController middleNameController;
-  TextEditingController lastNameController;
-  TextEditingController emailController;
-  TextEditingController phoneController;
-  TextEditingController addressController;
-  TextEditingController cityController;
-  TextEditingController stateController;
-  TextEditingController zipCodeController;
+  TextEditingController firstNameController =  TextEditingController();
+  TextEditingController middleNameController =  TextEditingController();
+  TextEditingController lastNameController =  TextEditingController();
+  TextEditingController emailController =  TextEditingController();
+  TextEditingController phoneController =  TextEditingController();
+  TextEditingController addressController =  TextEditingController();
+  TextEditingController address2Controller =  TextEditingController();
+  TextEditingController cityController =  TextEditingController();
+  TextEditingController stateController =  TextEditingController();
+  TextEditingController zipCodeController =  TextEditingController();
   String id,firstName,lastName,middleName,email,phone,address,city,state,zipCode;
 
   final _formKey = GlobalKey<FormState>();
   void createData()async{
-    print("aa");
-    //print(firstNameController.text);
     await db.collection("user").add({"name":"jenny"});
     await db.collection('userData').add({
-      'firstName':'$firstName',
-      'lastName':'$lastName',
-      'middleName':'$middleName',
-      'email':'$email',
-      'phone':'$phone',
-      'address':'$address',
-      'city':'$city',
-      'state':'$state',
-      'zipCode':'$zipCode'
+      'firstName':firstNameController.text,
+      'lastName':lastNameController.text,
+      'middleName':middleNameController.text,
+      'email':emailController.text,
+      'phone':phoneController.text,
+      'address':addressController.text,
+      'city':cityController.text,
+      'state':stateController.text,
+      'zipCode':zipCodeController.text
     });
     print(email);
   }
@@ -49,66 +48,66 @@ class ProfilePage extends StatelessWidget  {
                   child: Container(
                       child: Column(
                         children: <Widget>[
-                          Container(width: 140,height: 140,
-                            decoration: BoxDecoration(border: Border.all(color:Color(0xffE52897))),
-                            child: Stack(children: <Widget>[
-                              Padding(padding:EdgeInsets.all(40),child:Icon(Icons.camera_alt) ),
-                              Positioned(bottom: 0,
-                                  child:MaterialButton(color: Color(0xffE52897),
-                                      child: Text("UPLOAD PHOTO",
-                                        style: TextStyle(color: Colors.white),),
-                                      onPressed: (){showCustomDialog(context);}) )
-                            ],
-                            ),
-                          ),
+                          Wrap(direction: Axis.vertical,
+                            children: <Widget>[
+                              Container(width: 140,height: 100,
+                                decoration: BoxDecoration(border: Border.all(color:Color(0xffE52897))),
+                                child:Padding(padding:EdgeInsets.all(40),child:Icon(Icons.camera_alt) )),
+                              Container(
+                                width: 140,height: 35,
+                                child: MaterialButton(color: Color(0xffE52897),
+                                    child: Text("UPLOAD PHOTO",
+                                        style: TextStyle(color: Colors.white,fontSize: 13)),
+                                    onPressed: (){showCustomDialog(context);}),
+                              )
+                          ])
                           //SizedBox(width: 90,height: 90,),
                         ],
-                      )),
+                      )
+                  ),
                 ),
                 Expanded(flex:3,
-                  child: Container(padding: EdgeInsets.only(left: 10),
+                  child: Container(padding: EdgeInsets.symmetric(horizontal: 15),
                     child: ListView(children: <Widget>[
                       Text("INFORMATION",style: TextStyle(color: Color(0xffE52897),fontSize: 12,fontWeight: FontWeight.bold)),
                       Row(children: <Widget>[
                         Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          Container(margin: EdgeInsets.fromLTRB(0, 5, 10, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("FIRST NAME",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
-                                  //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  margin: EdgeInsets.only(right: 10),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
-                                  child: TextFormField(controller: firstNameController,
+                                  child: TextFormField(
+                                    controller: firstNameController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
                                         hintText:'name' ,
                                         border: InputBorder.none
                                     ),
-                                  onChanged: (str){
-                                    firstName = firstNameController.text; print(firstName);
-                                  },
-                                    onSaved: (value)=> firstName = value,
+                                    //onSaved: (value){print("!!!!!");print(value);}
                                   ),
                                 )
                               ],
                             ))),
                         Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          Container(margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("MIDDLE NAME",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
-                                  //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: middleNameController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
                                         hintText:'middle name' ,
@@ -122,21 +121,22 @@ class ProfilePage extends StatelessWidget  {
                       ]),
                       Row(children: <Widget>[
                         Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          Container(margin: EdgeInsets.fromLTRB(0, 5, 10, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("LAST NAME",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
-                                  //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  margin: EdgeInsets.only(right: 10),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: lastNameController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding:EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                        hintText:'M' ,
+                                        hintText:'last name' ,
                                         border: InputBorder.none
                                     ),
                                       onSaved: (value)=>lastName = value
@@ -145,15 +145,15 @@ class ProfilePage extends StatelessWidget  {
                               ],
                             ))),
                         Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          Container(margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("DATE OF BIRTH",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
@@ -172,21 +172,22 @@ class ProfilePage extends StatelessWidget  {
                       Text("CONTACT INFORMATION",style: TextStyle(color: Color(0xffE52897),fontSize: 12,fontWeight: FontWeight.bold)),
                       Row(children: <Widget>[
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        Container(margin: EdgeInsets.fromLTRB(0, 5, 10, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("PERSONAL EMAIL",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: emailController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding:EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                        hintText:'M' ,
+                                        hintText:'email' ,
                                         border: InputBorder.none
                                     ),
                                       onSaved: (value)=>email = value
@@ -195,21 +196,22 @@ class ProfilePage extends StatelessWidget  {
                               ],
                             ))),
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        Container(margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("PHONE NUMBER",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: phoneController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                        hintText:'M' ,
+                                        hintText:'phone' ,
                                         border: InputBorder.none
                                     ),
                                       onSaved: (value)=>phone = value
@@ -222,20 +224,21 @@ class ProfilePage extends StatelessWidget  {
                       Text("ADDRESS",style: TextStyle(color: Color(0xffE52897),fontSize: 12,fontWeight: FontWeight.bold)),
                       Row(children: <Widget>[
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        Container(margin: EdgeInsets.fromLTRB(0, 5, 10, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("ADDRESS",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: addressController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding:EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                        hintText:'M' ,
+                                        hintText:'address' ,
                                         border: InputBorder.none
                                     ),
                                       onSaved: (value)=>address = value
@@ -244,21 +247,22 @@ class ProfilePage extends StatelessWidget  {
                               ],
                             ))),
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        Container(margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
                             child: Wrap(
                               children: <Widget>[
-                                Text("ADSRESS LINE 2",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                                Text("ADDRESS LINE 2",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: address2Controller,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                        hintText:'M' ,
+                                        hintText:'address 2' ,
                                         border: InputBorder.none
                                     ),
                                   ),
@@ -268,18 +272,19 @@ class ProfilePage extends StatelessWidget  {
                       ]),
                       Row(children: <Widget>[
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        Container(margin: EdgeInsets.fromLTRB(0, 5, 10, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("CITY",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: cityController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
                                         hintText:'City' ,
@@ -297,12 +302,13 @@ class ProfilePage extends StatelessWidget  {
                                 Text("STATE",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: stateController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
                                         hintText:'State' ,
@@ -314,18 +320,19 @@ class ProfilePage extends StatelessWidget  {
                               ],
                             ))),
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        Container(margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("ZIP CODE",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
+                                    controller: zipCodeController,
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
                                         hintText:'Zip code' ,
@@ -341,21 +348,21 @@ class ProfilePage extends StatelessWidget  {
                       Text("PASSWORD",style: TextStyle(color: Color(0xffE52897),fontSize: 12,fontWeight: FontWeight.bold)),
                       Row(children: <Widget>[
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        Container(margin: EdgeInsets.fromLTRB(0, 5, 10, 5),
                             child: Wrap(
                               children: <Widget>[
-                                Text("CUURENT PASSWORD",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                                Text("CURRENT PASSWORD",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding:EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                        hintText:'M' ,
+                                        hintText:'******' ,
                                         border: InputBorder.none
                                     ),
                                   ),
@@ -363,21 +370,21 @@ class ProfilePage extends StatelessWidget  {
                               ],
                             ))),
                         Expanded(child:
-                        Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          Container(margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
                             child: Wrap(
                               children: <Widget>[
                                 Text("NEW PASSWORD",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                 Container(
                                   //margin: EdgeInsets.all(5),
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.grey[300]),
                                       borderRadius: BorderRadius.circular(18)
                                   ),
                                   child: TextFormField(
                                     style: TextStyle(fontSize: 12),
                                     decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                        hintText:'M' ,
+                                        hintText:'password' ,
                                         border: InputBorder.none
                                     ),
                                   ),
@@ -387,8 +394,8 @@ class ProfilePage extends StatelessWidget  {
                       ]),
                       Align(
                           alignment: Alignment.bottomRight,
-                          child: FlatButton(onPressed: (){db.collection("info").add({"name":"jenny"});
-                            createData();}, child: Text("SAVE"),color: Color(0xffE52897),textColor: Colors.white,
+                          child: FlatButton(onPressed: (){createData();},
+                              child: Text("SAVE"),color: Color(0xffE52897),textColor: Colors.white,
                               shape:RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(10),
                               ))
@@ -406,9 +413,6 @@ class ProfilePage extends StatelessWidget  {
   void showCustomDialog(BuildContext context){
     Dialog fancyDialog = Dialog(
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-        ),
         height: 400.0,
         width: 500.0,
         child: Column(mainAxisSize: MainAxisSize.min,
@@ -425,9 +429,8 @@ class ProfilePage extends StatelessWidget  {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Container(
+                      child: Container(margin: EdgeInsets.all(8),
                         decoration: BoxDecoration(border: Border.all(),
-                          //borderRadius: BorderRadius.circular(12),
                         ),
                         child: Icon(
                           Icons.close,
@@ -436,168 +439,18 @@ class ProfilePage extends StatelessWidget  {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(padding: EdgeInsets.all(0),child: FlatButton(onPressed: (){},
-                        child: Text("DONE"),color: Colors.green,textColor: Colors.white,
-                        shape:RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(20),
-                        )),)
-                  )
                 ],
               )
             ),
             Container(
               width: double.maxFinite,
               height: 290,
-              padding: EdgeInsets.all(15),
-              child:
-                  ListView(shrinkWrap: true,
-                      children: <Widget>[
-                        Row(children: <Widget>[Padding(padding: EdgeInsets.only(bottom: 10),
-                            child: Text("ADD MENU",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)))],),
-                        Row(children: <Widget>[Text("MENU INFORMATION",style: TextStyle(color: Color(0xffE52897),fontSize: 12,fontWeight: FontWeight.bold))],),
-                        Row(children: <Widget>[
-                          Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(5, 5, 10, 5),
-                              child: Wrap(
-                                children: <Widget>[
-                                  Text("MENU NAME",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                                  Container(
-                                    //margin: EdgeInsets.all(5),
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child: TextFormField(controller: firstNameController,
-                                      style: TextStyle(fontSize: 12),
-                                      decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                          hintText:'menu name' ,
-                                          border: InputBorder.none
-                                      ),
-                                      onChanged: (str){
-                                        firstName = firstNameController.text; print(firstName);
-                                      },
-                                      onSaved: (value)=> firstName = value,
-                                    ),
-                                  )
-                                ],
-                              ))),
-                          Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Wrap(
-                                children: <Widget>[
-                                  Text("DATES",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                                  Container(
-                                    //margin: EdgeInsets.all(5),
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child: TextFormField(
-                                        style: TextStyle(fontSize: 12),
-                                        decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                            hintText:'dates' ,
-                                            border: InputBorder.none
-                                        ),
-                                        onSaved: (value) => middleName = value
-                                    ),
-                                  )
-                                ],
-                              ))),
-                        ]),
-                        Row(children: <Widget>[
-                          Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(5, 5, 10, 5),
-                              child: Wrap(
-                                children: <Widget>[
-                                  Text("START TIME",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                                  Container(
-                                    //margin: EdgeInsets.all(5),
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child: TextFormField(controller: firstNameController,
-                                      style: TextStyle(fontSize: 12),
-                                      decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                          hintText:'menu name' ,
-                                          border: InputBorder.none
-                                      ),
-                                      onChanged: (str){
-                                        firstName = firstNameController.text; print(firstName);
-                                      },
-                                      onSaved: (value)=> firstName = value,
-                                    ),
-                                  )
-                                ],
-                              ))),
-                          Expanded(child:
-                          Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                              child: Wrap(
-                                children: <Widget>[
-                                  Text("END TIME",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                                  Container(
-                                    //margin: EdgeInsets.all(5),
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    child: TextFormField(
-                                        style: TextStyle(fontSize: 12),
-                                        decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                            hintText:'dates' ,
-                                            border: InputBorder.none
-                                        ),
-                                        onSaved: (value) => middleName = value
-                                    ),
-                                  )
-                                ],
-                              ))),
-                        ]),
-                        Row(children: <Widget>[Padding(padding: EdgeInsets.only(bottom: 4,top: 3),
-                            child: Text("  KEEP MENU ACTIVE",style:TextStyle(fontSize:12,fontWeight: FontWeight.w500)))],),
-                        Divider(color: Color(0xffE52897),),
-                        Container(child: Wrap(direction: Axis.vertical,
-                          children: <Widget>[
-                            Text("WEEK DAYS",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                            Container(width: 470,
-                              //margin: EdgeInsets.all(5),
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: DropdownButton(
-                                items: [DropdownMenuItem(child: Text("Select"),value: 1)],
-                              ),
-                            )
-                          ],
-                        )),
-                        Container(child: Wrap(direction: Axis.vertical,
-                          children: <Widget>[
-                            Text("CATEGORIES",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                            Container(width: 470,
-                              //margin: EdgeInsets.all(5),
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: DropdownButton(
-                                items: [DropdownMenuItem(child: Text("Select"),value: 1)],
-                              ),
-                            )
-                          ],
-                        )),
-                      ],
-                    )
-
-
+              padding: EdgeInsets.symmetric(horizontal: 25,vertical: 15),
+              child:Column(
+                children: <Widget>[
+                  Row(children: <Widget>[Text(" UPLOAD PHOTO",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),)],)
+                ],
+              )
             ),
           ],
         )

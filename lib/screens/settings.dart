@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eatos_app/screens/profilePage.dart';
 import 'package:eatos_app/screens/menuPage.dart';
+import 'package:eatos_app/screens/menu/categories.dart';
+import 'package:eatos_app/screens/menu/modifiers.dart';
 
 class Settings extends StatefulWidget{
   @override
@@ -13,7 +15,7 @@ class _Settings extends State<Settings>{
     "Add-Ons","Products","Ingredients","Groups", "Employee","Schedule", "Gratuity","Taxes","Discounts",
     "Service Charge","Card Reader","Cash Managment","Payment Options", "Server","Printers","Cash Register","Printer Advanced"
   ];
-  List<StatelessWidget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),Menu(),MenuPage(),Menu(),Modifiers(),Menu(),Menu(),Menu(),
+  List<Widget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),Menu(),MenuPage(),Categories(),Modifiers(),Menu(),Menu(),Menu(),
     Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Service(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu()];
   int checkIndex = 0;
 
@@ -185,11 +187,12 @@ class PageGeneral extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: ListView(
         children: <Widget>[
-          Text("GENERAL",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700),),
-          Text("RESTAURANT INFORMATION",style:TextStyle(color: Color(0xffE52897),fontSize:9,fontWeight: FontWeight.w500),),
+          Padding(padding: EdgeInsets.only(left: 10,top:20),child: Text("GENERAL",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700))),
+          Padding(padding: EdgeInsets.only(left: 10,top:15,),child:
+            Text("RESTAURANT INFORMATION",style:TextStyle(color: Color(0xffE52897),fontSize:9,fontWeight: FontWeight.w500),)),
           Row(
             children: <Widget>[
               Expanded(
@@ -433,7 +436,7 @@ class EndDay extends StatelessWidget {
                     child: Text("START END OF DAY",style: TextStyle(color: Color(0xffE52897),fontSize: 10,fontWeight: FontWeight.bold)),
                   ),
                   Align(alignment: Alignment.centerRight,
-                      child:FlatButton(onPressed: (){}, child: Text("START END OF DAY"),color: Color(0xffE52897),textColor: Colors.white,
+                      child:FlatButton(onPressed: (){showCustomDialog(context);}, child: Text("START END OF DAY"),color: Color(0xffE52897),textColor: Colors.white,
                           shape:RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10),
                           ))
@@ -579,9 +582,95 @@ class EndDay extends StatelessWidget {
 
             ],
           ),
-    )
-      ;
+    );
+  }
 
+  void showCustomDialog(BuildContext context){
+    Dialog fancyDialog = Dialog(
+      child: Container(
+          height: 520.0,
+          width: 600.0,
+          child: Column(mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(color: Colors.grey[700]),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: InkWell(
+                          onTap: () {Navigator.pop(context);},
+                          child: Container(
+                            decoration: BoxDecoration(border: Border.all(),
+                            ),
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+              ),
+              Container(
+                  width: double.maxFinite,
+                  //height: 390,
+                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                  child:Column(
+                    children: <Widget>[
+                      Row(children: <Widget>[Padding(padding: EdgeInsets.only(bottom: 10),
+                          child: Text("Good Morning!",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)))],),
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: <Widget>[
+                        Expanded(child:
+                          Container(margin: EdgeInsets.fromLTRB(5, 5, 10, 5),
+                            child: Wrap(
+                              children: <Widget>[
+                                Text("MENU NAME",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                                Container(
+                                  //margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                )
+                              ],
+                            ))),
+                        Expanded(child:
+                          Container(margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                            child: Wrap(
+                              children: <Widget>[
+                                Text("DATES",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                                Container(
+                                  //margin: EdgeInsets.all(5),
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                )
+                              ],
+                            ))),
+                      ]),
+                      Container(child: Wrap(direction: Axis.vertical,
+                        children: <Widget>[
+                          Text("CATEGORIES",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                        ],
+                      )),
+                    ],
+                  )
+
+
+              ),
+            ],
+          )
+      ),
+    );
+    showDialog(
+        context: context, builder: (BuildContext context) => fancyDialog);
   }
 }
 class Menu extends StatelessWidget {
@@ -592,14 +681,7 @@ class Menu extends StatelessWidget {
     );
   }
 }
-class Modifiers extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(" MENU"),
-    );
-  }
-}
+
 class Service extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

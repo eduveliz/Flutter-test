@@ -66,7 +66,7 @@ class _HomePage extends State<HomePage>{
                  ],
                )),
                 Stack(
-                  children: <Widget>[ Image.asset('Assets/titulo.png')],
+                  children: <Widget>[ Padding(padding: EdgeInsets.symmetric(vertical: 10),child: Image.asset('Assets/titulo.png'))],
                 )
               ],//crossAxisAlignment: CrossAxisAlignment.center
             ),

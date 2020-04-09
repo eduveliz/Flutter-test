@@ -1,7 +1,18 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
-class ProfilePage extends StatelessWidget  {
+class ProfilePage extends StatefulWidget{
+  @override
+  _ProfilePage createState()=> _ProfilePage();
+}
+
+class _ProfilePage extends State<ProfilePage>{
   final db = Firestore.instance;
 
   TextEditingController firstNameController =  TextEditingController();
@@ -15,8 +26,11 @@ class ProfilePage extends StatelessWidget  {
   TextEditingController stateController =  TextEditingController();
   TextEditingController zipCodeController =  TextEditingController();
   String id,firstName,lastName,middleName,email,phone,address,city,state,zipCode;
-
   final _formKey = GlobalKey<FormState>();
+  File _image;
+  Uint8List profilePhoto;
+  bool onSelect=false;
+
   void createData()async{
     await db.collection("user").add({"name":"jenny"});
     await db.collection('userData').add({
@@ -30,37 +44,253 @@ class ProfilePage extends StatelessWidget  {
       'state':stateController.text,
       'zipCode':zipCodeController.text
     });
-    print(email);
+  }
+
+  decideImage(){
+    if(profilePhoto == null){
+      return DecorationImage(image:AssetImage("Assets/camera_icon.png"),fit: BoxFit.contain);
+    }else{
+      return DecorationImage(image:MemoryImage(profilePhoto),fit: BoxFit.cover);
+    }
+  }
+
+  getProfilePhoto(){
+    int max_size = 7*1024*1024;
+    StorageReference photoReference = FirebaseStorage.instance.ref().child("userPicture");
+    photoReference.getData(max_size).then((data){
+      setState((){
+        profilePhoto = data;
+      });
+    }).catchError((error){});
+  }
+
+  uploadPhoto(BuildContext context)async{
+    final StorageReference firebaseStoageRef = FirebaseStorage.instance.ref().child('userPicture');
+    final StorageUploadTask task = firebaseStoageRef.putFile(_image);
+    await task.onComplete;
+    getProfilePhoto();
+    Navigator.pop(context);
   }
   @override
+  void initState(){
+    super.initState();
+    getProfilePhoto();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    Future<void> showCustomDialog(BuildContext context){
+       return showDialog(context: context,
+           builder: (BuildContext context) {
+             return StatefulBuilder(
+                 builder: (BuildContext context, StateSetter setState) {
+                   pickerGallery(BuildContext context)async{
+                     if(!onSelect){
+                       onSelect = true;
+                       File image = await ImagePicker.pickImage(source:ImageSource.gallery);
+                       setState((){
+                         onSelect = !onSelect;
+                         _image = image;
+                       });
+                     }
+
+                   }
+                   pickerCamera(BuildContext context) async{
+                     if(!onSelect) {
+                       onSelect = true;
+                       File image = await ImagePicker.pickImage(source: ImageSource.camera);
+                       setState(() {
+                         onSelect = !onSelect;
+                         _image = image;
+                       });
+                     }
+                   }
+                   return AlertDialog(
+                     contentPadding:EdgeInsets.all(0),
+                     content: Container( width: 450.0,
+                         child: Column(
+                           children: <Widget>[
+                             Container(
+                                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                 alignment: Alignment.center,
+                                 decoration: BoxDecoration(color: Colors.grey[700]),
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: <Widget>[
+                                     Align(
+                                       alignment: Alignment.topLeft,
+                                       child: InkWell(
+                                         onTap: () {
+                                           setState((){
+                                             onSelect = !onSelect;
+                                           });
+                                           Navigator.pop(context);
+                                         },
+                                         child: Container(margin: EdgeInsets.all(5),
+                                           padding: EdgeInsets.symmetric(horizontal: 10),
+                                           decoration: BoxDecoration(border: Border.all(),
+                                           ),
+                                           child: Icon(
+                                             Icons.close,
+                                             color: Colors.white,
+                                           ),
+                                         ),
+                                       ),
+                                     ),
+                                     Align(
+                                         alignment: Alignment.centerRight,
+                                         child: InkWell(
+                                             onTap: () {
+                                               Navigator.pop(context);
+                                             },
+                                             child: Container(height: 25, width: 80,
+                                                 margin: EdgeInsets.symmetric(
+                                                     vertical: 5),
+                                                 child: MaterialButton(onPressed: () {uploadPhoto(context);},
+                                                     elevation: 10,
+                                                     padding: EdgeInsets.symmetric(
+                                                         vertical: 2),
+                                                     child: Text("DONE", style: TextStyle(
+                                                         fontSize: 18,
+                                                         fontWeight: FontWeight.w400)),
+                                                     color: Color(0xff17AF7E),
+                                                     textColor: Colors.white,
+                                                     shape: RoundedRectangleBorder(
+                                                       borderRadius: new BorderRadius
+                                                           .circular(20),
+                                                     ))
+                                             )
+                                         )
+                                     )
+                                   ],
+                                 )
+                             ),
+                             Container(width: double.maxFinite,
+                                 padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                                 child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                   children: <Widget>[
+                                     Row(children: <Widget>[
+                                       Text(" UPLOAD PHOTO", style: TextStyle(
+                                           fontSize: 20, fontWeight: FontWeight.w700),)
+                                     ],),
+                                     Container(margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: Color(0xffE52897),)),
+                                       width: 200,
+                                       height: 130,
+                                       child: Center(
+                                         child: Column(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           children: <Widget>[
+                                             Expanded(
+                                                 child: Center(
+                                                     child: (_image == null) ? Image(image: AssetImage("Assets/camera_icon.png")) : Image.file(
+                                                         _image, fit: BoxFit.cover)
+                                                 )),
+                                             Align(alignment: Alignment.bottomCenter,
+                                                 child: SizedBox(height: 35,
+                                                   width: MediaQuery.of(context).size.width,
+                                                   child: FlatButton(onPressed: () {},
+                                                     shape: new RoundedRectangleBorder(
+                                                       borderRadius: new BorderRadius.only(
+                                                           bottomRight: Radius.circular(9),
+                                                           bottomLeft: Radius.circular(9)),
+                                                     ),
+                                                     padding: EdgeInsets.all(0),
+                                                     child: Text("UPLOAD PHOTO",
+                                                       style: TextStyle(
+                                                           color: Colors.white),),
+                                                     color: Color(0xffE52897),
+                                                   ),
+                                                 )
+                                             )
+                                           ],
+                                         ),
+                                       ),
+                                     ),
+                                     Row(mainAxisAlignment: MainAxisAlignment.center,
+                                         children: <Widget>[
+                                           Container(
+                                               height: 20, margin: EdgeInsets.symmetric(
+                                               horizontal: 10),
+                                               child: MaterialButton(onPressed: () {pickerGallery(context);},
+                                                   elevation: 10,
+                                                   child: Text("CHOOSE PHOTO",
+                                                     style: TextStyle(fontSize: 10),),
+                                                   color: Color(0xffE52897),
+                                                   textColor: Colors.white,
+                                                   shape: RoundedRectangleBorder(
+                                                     borderRadius: new BorderRadius
+                                                         .circular(20),
+                                                   ))
+                                           ),
+                                           Container(
+                                               height: 20, margin: EdgeInsets.symmetric(
+                                               horizontal: 10),
+                                               child: MaterialButton(
+                                                   onPressed: () {
+                                                     pickerCamera(context);
+                                                   },
+                                                   elevation: 10,
+                                                   child: Text("TAKE PHOTO",
+                                                     style: TextStyle(fontSize: 10),),
+                                                   color: Color(0xffE52897),
+                                                   textColor: Colors.white,
+                                                   shape: RoundedRectangleBorder(
+                                                     borderRadius: new BorderRadius
+                                                         .circular(20),
+                                                   ))
+                                           )
+                                         ]),
+                                   ],
+                                 )
+                             ),
+                           ],
+                         )
+                     ),
+                   );
+                 });
+           });
+       }
+
     return Container(//width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
             Row(children: <Widget>[Padding(padding: EdgeInsets.only(bottom: 10),child: Text("MY PROFILE",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)))],),
-            Expanded(child: Row(//mainAxisSize: MainAxisSize.max,
-              //mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
+            Expanded(child: Row(
               children: <Widget>[
                 Expanded(flex: 1,
                   child: Container(
                       child: Column(
                         children: <Widget>[
-                          Wrap(direction: Axis.vertical,
-                            children: <Widget>[
-                              Container(width: 140,height: 100,
-                                decoration: BoxDecoration(border: Border.all(color:Color(0xffE52897))),
-                                child:Padding(padding:EdgeInsets.all(40),child:Icon(Icons.camera_alt) )),
-                              Container(
-                                width: 140,height: 35,
-                                child: MaterialButton(color: Color(0xffE52897),
-                                    child: Text("UPLOAD PHOTO",
-                                        style: TextStyle(color: Colors.white,fontSize: 13)),
-                                    onPressed: (){showCustomDialog(context);}),
-                              )
-                          ])
+                          Container(//margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                            decoration: BoxDecoration(border: Border.all(color: Color(0xffE52897),)),
+                            width: MediaQuery.of(context).size.width,height: 120,
+                            child: Center(
+                              child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        image: decideImage()//DecorationImage(image:MemoryImage(profilePhoto),fit: BoxFit.cover)
+                                  )
+                                    )),
+                                  Align(alignment: Alignment.bottomCenter,
+                                      child: SizedBox(height: 30,
+                                        width: MediaQuery.of(context).size.width,
+                                        child: FlatButton(onPressed: (){
+                                          showCustomDialog(context);},
+                                          padding: EdgeInsets.all(0),
+                                          child: Text("UPLOAD PHOTO",style: TextStyle(color: Colors.white),),
+                                          color: Color(0xffE52897),
+                                        ),
+                                      )
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
                           //SizedBox(width: 90,height: 90,),
                         ],
                       )
@@ -410,53 +640,5 @@ class ProfilePage extends StatelessWidget  {
     );
   }
 
-  void showCustomDialog(BuildContext context){
-    Dialog fancyDialog = Dialog(
-      child: Container(
-        height: 400.0,
-        width: 500.0,
-        child: Column(mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(color: Colors.grey[700]),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(margin: EdgeInsets.all(8),
-                        decoration: BoxDecoration(border: Border.all(),
-                        ),
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ),
-            Container(
-              width: double.maxFinite,
-              height: 290,
-              padding: EdgeInsets.symmetric(horizontal: 25,vertical: 15),
-              child:Column(
-                children: <Widget>[
-                  Row(children: <Widget>[Text(" UPLOAD PHOTO",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),)],)
-                ],
-              )
-            ),
-          ],
-        )
-      ),
-    );
-    showDialog(
-        context: context, builder: (BuildContext context) => fancyDialog);
-  }
+
 }

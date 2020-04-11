@@ -167,11 +167,24 @@ class _Modifiers extends State<Modifiers>{
                       ),
                       Align(
                           alignment: Alignment.centerRight,
-                          child: Container(padding: EdgeInsets.all(0),child: FlatButton(onPressed: (){saveData();},
-                              child: Text("DONE"),color: Colors.green,textColor: Colors.white,
-                              shape:RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(20),
-                              )),)
+                          child:  Container(
+                              height: 25, width: 80,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 5),
+                              child: MaterialButton(onPressed: () {saveData();Navigator.pop(context);},
+                                  elevation: 10,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 2),
+                                  child: Text("DONE", style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400)),
+                                  color: Color(0xff17AF7E),
+                                  textColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius
+                                        .circular(20),
+                                  ))
+                          )
                       )
                     ],
                   )

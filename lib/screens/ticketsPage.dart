@@ -64,7 +64,7 @@ class _Tickets extends State<Tickets> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        resizeToAvoidBottomPadding: true,
+        resizeToAvoidBottomPadding: false,
         backgroundColor: Color(0xffF7F7F7),
       body: Row(
         children: <Widget>[
@@ -74,111 +74,137 @@ class _Tickets extends State<Tickets> with SingleTickerProviderStateMixin{
             child: Column(
               children: <Widget>[
                 Container(width: MediaQuery.of(context).size.width,
-                  //color: Colors.amber,
+                  margin: EdgeInsets.all(5),
+                  color:Color(0xff8C8D8E),
+                  height: 35,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Expanded(child:Container(width: 60,
-                            child: RaisedButton(onPressed: (){},padding: EdgeInsets.all(0),
-                            color: Colors.grey,
-                            child: Wrap(
-                              children: <Widget>[
-                                Center(child:Text(
-                                  "ORDER",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                )),
-                                Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                              ],
-                            ))
-                        )),
-                        Expanded(child:Container(width: 70,
-                            child: RaisedButton(onPressed: (){},
-                            color: Colors.grey,
-                            child: Wrap(
-                              children: <Widget>[
-                                Center(child:Text(
-                                  "NAME",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                )),
-                                Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                              ],
-                            ))
-                        )),
-                        Expanded(child:Container(width: 55,
-                            child: RaisedButton(onPressed: (){},padding: EdgeInsets.all(0),
-                            color: Colors.grey,
-                              child: Wrap(direction: Axis.vertical,
-                                children: <Widget>[
-                                Center(child:Text(
-                                  "TYPE",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                )),
-                                Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                              ],
-                            ))
-                        )),
-                        Expanded(child:Container(width: 70,
-                            child: RaisedButton(onPressed: (){},padding: EdgeInsets.all(0),
-                                color: Colors.grey,
-                                child: Wrap(direction: Axis.vertical,
-                                  children: <Widget>[
-                                    Center(child:Text(
-                                      "STATUS",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                    )),
-                                    Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                                  ],
-                                ))
-                        )),
-                        Expanded(child:Container(
-                            child: RaisedButton(onPressed: (){},
-                          color: Colors.grey,
-                            child: Wrap(
-                              children: <Widget>[
-                                Center(child:Text(
-                                  "TIMER",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                )),
-                                Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                              ],
-                          ))
-                        )),
-                        Expanded(child:Container(//color: Colors.grey,
-                           child: MaterialButton(onPressed: (){},
-                            color: Colors.grey,
-                              child: Wrap(
-                                children: <Widget>[
-                                Center(child:
-                                  FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: Text(
-                                      "REVENUE",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                    ),
-                                  )),
-                                Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
-                              ],
-                            ))
-                        )),
-                        Expanded(child:
-                                Container(child: FlatButton(onPressed: (){},padding: EdgeInsets.all(0),
-                                    color: Colors.grey,
-                                    child: Wrap(
+                        Expanded(
+                            child:InkWell(
+                                onTap: (){print("PRESS");},
+                               child:Container(//width: 60,
+                                   padding: EdgeInsets.only(top: 5),
+                                 color: Color(0xff8C8D8E),
+                                  child:Column(
+                                    children: <Widget>[
+                                      Center(child:Text(
+                                        "ORDER",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                      )),
+                                      Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                    ],
+                                  )
+                              )
+                            )
+                        ),
+                        Expanded(
+                            child:InkWell(onTap: (){print("PRESS");},
+                                child:Container(//width: 60,
+                                    padding: EdgeInsets.only(top: 5,left: 5,right: 5),
+                                    color: Color(0xff8C8D8E),
+                                    child:Column(
                                       children: <Widget>[
-                                        Center(child:
-                                        FittedBox(
-                                          fit: BoxFit.contain,
-                                          child: Text(
-                                            "PAYMENT",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
-                                          ),
+                                        Center(child:Text(
+                                          "NAME",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
                                         )),
                                         Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
                                       ],
-                                    )),)
-                            ),
-                        Container(width: 25,
-                          margin: EdgeInsets.all(2),//color: Colors.red,
-                          child: FloatingActionButton(
-                            backgroundColor: _buttonColor.value,
-                            onPressed: animate,
-                            tooltip: 'Toggle',
-                            child: AnimatedIcon(
-                              icon: AnimatedIcons.menu_close,
-                              progress: _animateIcon,
+                                    )
+                                )
+                            )
+                        ),
+                        Expanded(
+                            child:InkWell(
+                                onTap: (){print("PRESS");},
+                                child:Container(//width: 60,
+                                    padding: EdgeInsets.only(top: 5),
+                                    color: Color(0xff8C8D8E),
+                                    child:Column(
+                                      children: <Widget>[
+                                        Center(child:Text(
+                                          "TYPE",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                        )),
+                                        Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                      ],
+                                    )
+                                )
+                            )
+                        ),
+                        Expanded(
+                            child:InkWell(onTap: (){print("PRESS");},
+                                child:Container(//width: 60,
+                                    padding: EdgeInsets.only(top: 5,left: 5,right: 5),
+                                    color: Color(0xff8C8D8E),
+                                    child:Column(
+                                      children: <Widget>[
+                                        Center(child:Text(
+                                          "STATUS",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                        )),
+                                        Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                      ],
+                                    )
+                                )
+                            )
+                        ),
+                        Expanded(
+                            child:InkWell(onTap: (){print("PRESS");},
+                                child:Container(//width: 60,
+                                    padding: EdgeInsets.only(top: 5,left: 5,right: 5),
+                                    color: Color(0xff8C8D8E),
+                                    child:Column(
+                                      children: <Widget>[
+                                        Center(child:Text(
+                                          "TIMER",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                        )),
+                                        Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                      ],
+                                    )
+                                )
+                            )
+                        ),
+                        Expanded(
+                            child:InkWell(onTap: (){print("PRESS");},
+                                child:Container(//width: 60,
+                                    padding: EdgeInsets.only(top: 5,left: 5,right: 5),
+                                    color: Color(0xff8C8D8E),
+                                    child:Column(
+                                      children: <Widget>[
+                                        Center(child:Text(
+                                          "REVENUE",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                        )),
+                                        Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                      ],
+                                    )
+                                )
+                            )
+                        ),
+                        Expanded(
+                            child:InkWell(onTap: (){print("PRESS");},
+                                child:Container(//width: 60,
+                                    padding: EdgeInsets.only(top: 5,left: 5,right: 5),
+                                    color: Color(0xff8C8D8E),
+                                    child:Column(
+                                      children: <Widget>[
+                                        Center(child:Text(
+                                          "PAYMENT",style: TextStyle(color: Colors.white,fontSize: 10),textAlign: TextAlign.center,
+                                        )),
+                                        Center(child:Icon(Icons.expand_more,size: 15,color: Colors.white,))
+                                      ],
+                                    )
+                                )
+                            )
+                        ),
+                        Container(width: 20,
+                          margin: EdgeInsets.all(5),//color: Colors.red,
+                          child: FittedBox(
+                            child: FloatingActionButton(
+                              backgroundColor: _buttonColor.value,
+                              onPressed: animate,
+                              tooltip: 'Toggle',
+                              child: AnimatedIcon(
+                                icon: AnimatedIcons.menu_close,
+                                progress: _animateIcon,
+                              ),
                             ),
                           ),
                         )

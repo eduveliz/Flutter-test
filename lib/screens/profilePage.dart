@@ -32,8 +32,7 @@ class _ProfilePage extends State<ProfilePage>{
   bool onSelect=false;
 
   void createData()async{
-    await db.collection("user").add({"name":"jenny"});
-    await db.collection('userData').add({
+    await db.collection('user').document("user-data").setData({
       'firstName':firstNameController.text,
       'lastName':lastNameController.text,
       'middleName':middleNameController.text,
@@ -43,6 +42,36 @@ class _ProfilePage extends State<ProfilePage>{
       'city':cityController.text,
       'state':stateController.text,
       'zipCode':zipCodeController.text
+    });
+/*
+    try {
+      db.collection('user').document('user-data').updateData({
+        'firstName':firstNameController.text,
+        'lastName':lastNameController.text,
+        'middleName':middleNameController.text,
+        'email':emailController.text,
+        'phone':phoneController.text,
+        'address':addressController.text,
+        'city':cityController.text,
+        'state':stateController.text,
+        'zipCode':zipCodeController.text});
+    } catch (e) {
+      print(e.toString());
+    }
+    */
+  }
+  void getData()  async{
+    var document = await Firestore.instance.collection('user').document('user-data')
+    .get().then((document) {
+      firstNameController.text = document['firstName'];
+      lastNameController.text = document['lastName'];
+      middleNameController.text = document['middleName'];
+      emailController.text = document['email'];
+      phoneController.text = document['phone'];
+      addressController.text = document['address'];
+      cityController.text = document['city'];
+      stateController.text = document['state'];
+      zipCodeController.text = document['zipCode'];
     });
   }
 
@@ -75,6 +104,7 @@ class _ProfilePage extends State<ProfilePage>{
   void initState(){
     super.initState();
     getProfilePhoto();
+    getData();
   }
 
   @override
@@ -139,11 +169,7 @@ class _ProfilePage extends State<ProfilePage>{
                                      ),
                                      Align(
                                          alignment: Alignment.centerRight,
-                                         child: InkWell(
-                                             onTap: () {
-                                               Navigator.pop(context);
-                                             },
-                                             child: Container(height: 25, width: 80,
+                                         child: Container(height: 25, width: 80,
                                                  margin: EdgeInsets.symmetric(
                                                      vertical: 5),
                                                  child: MaterialButton(onPressed: () {uploadPhoto(context);},
@@ -151,7 +177,7 @@ class _ProfilePage extends State<ProfilePage>{
                                                      padding: EdgeInsets.symmetric(
                                                          vertical: 2),
                                                      child: Text("DONE", style: TextStyle(
-                                                         fontSize: 18,
+                                                         fontSize: 16,
                                                          fontWeight: FontWeight.w400)),
                                                      color: Color(0xff17AF7E),
                                                      textColor: Colors.white,
@@ -160,7 +186,6 @@ class _ProfilePage extends State<ProfilePage>{
                                                            .circular(20),
                                                      ))
                                              )
-                                         )
                                      )
                                    ],
                                  )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:keyboard_avoider/keyboard_avoider.dart';
+//import 'package:keyboard_avoider/keyboard_avoider.dart';
+import 'package:eatos_app/components/new_guest.dart';
 
 class NewOrden extends StatefulWidget{
   @override
@@ -25,22 +26,6 @@ class _NewOrden extends State<NewOrden>{
       checkIndex = i;
     });
   }
-  Widget itemsList(){
-    return Container(
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-        Align(
-          alignment: Alignment.centerLeft,
-          child:  Text("1 custom item "),
-        ),
-          Align(
-            alignment: Alignment.centerRight,
-            child:  Text("$itemNum"),
-          )
-        ],
-      )
-    );
-  }
 
   @override
   void initState() {
@@ -50,10 +35,8 @@ class _NewOrden extends State<NewOrden>{
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardAvoider(
-      autoScroll: true,
-      child:
-      Container(height: MediaQuery.of(context).size.height-60,
+    return
+      Container(
         color: Color(0xffF7F7F7),
           child:(
               Row(
@@ -118,127 +101,11 @@ class _NewOrden extends State<NewOrden>{
                   )
                 )),
                   Expanded(flex: 3,
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                          Align(
-                          alignment: Alignment.topLeft,
-                            child: Container(
-                                margin: EdgeInsets.all(10),
-                                child: Wrap(
-                                    children:[
-                                      Text("New",style: TextStyle(color:Color(0xffE52897)),),
-                                      Text(" Guest")
-                                    ]
-                                )
-                            ),
-                          ),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child:Container(),
-                              )
-                            ]),
-                            Container(//color: Color(0xffD1058A),
-                              height: 23,
-                              child:
-                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(child:
-                                    Container(
-                                        padding: EdgeInsets.all(2),
-                                        decoration: BoxDecoration(color: Color(0xffE52897),
-                                            border: Border.all(color:Color(0xffE52897))),
-                                        child:MaterialButton(onPressed: (){},
-                                          child: Text("Dine-In",
-                                              style: TextStyle(fontSize: 7,color: Colors.white),textAlign: TextAlign.center),
-                                        )
-                                    )
-                                    ),
-                                    Expanded(child:
-                                    Container(
-                                        padding: EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Color(0xffE52897))),
-                                        child:OutlineButton(onPressed: (){},borderSide: BorderSide(color: Colors.white),
-                                          child: Text("To-Go",
-                                              style: TextStyle(fontSize: 7,color: Color(0xffE52897)),textAlign: TextAlign.center),
-                                        )
-                                    )),
-                                    Expanded(child:
-                                    Container(
-                                        padding: EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color:Color(0xffE52897))),
-                                        child:OutlineButton(onPressed: (){},borderSide: BorderSide(color: Colors.white),
-                                          child: Text("Deliver",
-                                              style: TextStyle(fontSize: 7,color: Color(0xffE52897)),textAlign: TextAlign.center),
-                                        )
-                                    )),
-                                    Expanded(child:
-                                    Container(
-                                        padding: EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Color(0xffE52897))),
-                                        child:OutlineButton(onPressed: (){},borderSide: BorderSide(color: Colors.white),
-                                          child: Text("Banq",
-                                              style: TextStyle(fontSize: 7,color: Color(0xffE52897)),textAlign: TextAlign.center),
-                                        )
-                                    ))
-                                  ]
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(flex:5,
-                                      child: Container(
-                                        child: ListView(
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.all(10),
-                                              child:(itemNum != null) ? itemsList() :Text("Please select an item..",style: TextStyle(color: Colors.grey[400]),) ,
-                                            )
-                                          ],
-                                        ),
-                                      ),),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Container(
-                                            height: 100,padding: EdgeInsets.all(15),
-                                            child:
-                                            (itemNum != null) ?
-                                            Column(
-                                                children:[
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: <Widget>[
-                                                      Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Text("SubTotal:"),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment.centerRight,
-                                                        child: (itemNum != null) ? Text("$total") : Text(""),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ]
-                                            )
-                                                : Text("")
-                                        )
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                          ]
-                      )))
+                      child: NewGuestView(total,itemNum)
+                  )
                 ],
               ))
-    ));
+    );
   }
 }
 class TextTab extends StatelessWidget {

@@ -20,7 +20,6 @@ class _HomePage extends State<HomePage>{
     super.initState();
   }
   void indexChecked(int i) {
-    print(checkIndex);
     print(i);
     if (checkIndex == i) return;
     setState(() {
@@ -32,7 +31,7 @@ class _HomePage extends State<HomePage>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      //resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomPadding: false,
       body: SafeArea(
         child: Row(
           children: <Widget>[
@@ -42,15 +41,9 @@ class _HomePage extends State<HomePage>{
             color: Color(0xff565962),
             child: Column(//mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                        decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(),
-                        )
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                    child: Image.asset('Assets/usuario.png')
+                Padding(padding: EdgeInsets.all(8),child:
+                  CircleAvatar(radius: 12,
+                    backgroundColor: Color(0xffC61B7F),child: Text("J"),),
                 ),
                 Container(child:
                   ListView(shrinkWrap: true,
@@ -73,7 +66,7 @@ class _HomePage extends State<HomePage>{
           ),
           if(checkIndex==0)
             Expanded(
-              child: Scaffold(
+              child: Scaffold(resizeToAvoidBottomPadding: false,
                 body: NewOrden(),
               )
             )

@@ -31,6 +31,7 @@ class _Settings extends State<Settings>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
         child: Row(
           children: <Widget>[

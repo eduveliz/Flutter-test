@@ -48,7 +48,10 @@ class _Categories extends State<Categories>{
         padding: EdgeInsets.all(15),
         child:Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("CATEGORIES",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: Text("CATEGORIES",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700))
+              ),
               Container(padding: EdgeInsets.all(10),
                 child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +126,7 @@ class _Categories extends State<Categories>{
                                 ]
                             );
                           }else{
-                            return Text("cagando..");
+                            return Text("Loading..");
                           }
                         })
                 ) ,

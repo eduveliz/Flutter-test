@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:keyboard_avoider/keyboard_avoider.dart';
-import 'package:eatos_app/components/new_guest.dart';
+import 'package:eatos_app/widgets/new_guest.dart';
 
 class NewOrden extends StatefulWidget{
   @override
@@ -78,7 +78,20 @@ class _NewOrden extends State<NewOrden>{
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(5),topRight: Radius.circular(5)),
                               ),
-                              child: Text("-------"),
+                              child: InkWell(//fit: BoxFit.fitWidth,
+                                    child: Container(
+                                      padding: EdgeInsets.only(right: 5),
+                                      decoration: BoxDecoration(
+                                        border:  Border.all(color:Colors.white),
+                                        borderRadius: new BorderRadius.circular(10),
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(Icons.search,size: 15,color: Colors.white),
+                                      ),
+                                    ),
+
+                              )
                             )),
                             Expanded(
                                 child:Container(
@@ -91,12 +104,13 @@ class _NewOrden extends State<NewOrden>{
                                           topLeft: Radius.circular(5),topRight: Radius.circular(5)),
                                     ),
                                     child: Center(
-                                      child:Text("Server Connected",style: TextStyle(fontSize: 13,color: Colors.green),
-                                      ),)
+                                      child:FittedBox(fit: BoxFit.fitWidth,
+                                          child: Text("Server Connected",
+                                              style: TextStyle(color: Colors.green)))
+                                      )
                                 ))
                           ],),
                       )
-
                     ],
                   )
                 )),
@@ -127,9 +141,15 @@ class TextTab extends StatelessWidget {
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(5),topRight: Radius.circular(5)),
       ),
-      child: Center(
-        child: Text(name,style:TextStyle(color: Colors.white),),
-      )
+      child: FittedBox(fit: BoxFit.scaleDown,
+        child:Row(
+          children: <Widget>[
+            Icon(Icons.assignment,color: Colors.white),
+            Center(
+              child: Text(name,style:TextStyle(color: Colors.white))
+            )
+          ],
+        ))
     );
   }
   //quarterTurns: 3,

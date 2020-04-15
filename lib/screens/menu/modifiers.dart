@@ -49,8 +49,10 @@ class _Modifiers extends State<Modifiers>{
         padding: EdgeInsets.all(15),
         child:Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("MODIFIERS",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)),
-              Container(padding: EdgeInsets.all(10),
+              Container(padding: EdgeInsets.symmetric(horizontal: 5),
+                child:Text("MODIFIERS",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700))
+              ),
+              Container(//padding: EdgeInsets.all(10),
                 child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -73,8 +75,7 @@ class _Modifiers extends State<Modifiers>{
                         alignment: Alignment.topRight,
                         child:Container(
                           child: FlatButton(shape:RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(15),
-                          ) ,
+                            borderRadius: new BorderRadius.circular(15)) ,
                             color: Color(0xffE52897),
                             onPressed: (){showCustomDialog(context);},
                             child: Text("+ ADD NEW MODIFIER",style: TextStyle(color: Colors.white),),
@@ -122,7 +123,7 @@ class _Modifiers extends State<Modifiers>{
                                 ]
                             );
                           }else{
-                            return Text("cagando..");
+                            return Text("Loading..");
                           }
                         })
                 ) ,

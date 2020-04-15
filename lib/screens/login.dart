@@ -53,134 +53,85 @@ class _LoginState extends State<Login>{
     }
 
     final pageTitle = Container(
-        margin: EdgeInsets.only(top: 80),
+        margin: EdgeInsets.only(top: 30),
         //crossAxisAlignment: CrossAxisAlignment.start,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(//direction: Axis.vertical,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "eatOs",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 45.0,
-              ),
+            Container(
+              child: Text(
+                "eatOs",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 40.0,
+                ),
+              )
             ),
-            Text(
-              "Point of Sale",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
-              ),
+            Container(
+              child: Text(
+                "Point of Sale",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
             )
           ],
         )
     );
 
-    final emailField = Padding(
-        padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-        child: Container(
-            color: Color(0xfff5f5f5),
-            width: MediaQuery.of(context).size.width/2,
-            child:Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child:TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: emailController,
-                  onChanged: (str){
-                    email = emailController.text; print(email);
-                    },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: 'Email or Mobile',
-                    labelStyle: TextStyle(color: Colors.blueGrey),
-                  ),
-                  //keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(color: Colors.blueGrey),
-                  cursorColor: Colors.blueGrey,
-                )
-            )
-        )
-    );
-
-    final passwordField = Padding(
-        padding:EdgeInsets.fromLTRB(25, 0, 25, 0),
-        child: Container(
-            width: MediaQuery.of(context).size.width/2,
-            color: Color(0xfff5f5f5),
-            child:Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextFormField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.blueGrey),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(color: Colors.blueGrey),
-                  cursorColor: Colors.blueGrey,
-                  obscureText: true,
-                )
-            )
-        )
-    );
-
-    final loginForm = Padding(
-      padding: EdgeInsets.only(top: 30.0),
+    final loginForm = Container(
+      width: MediaQuery.of(context).size.width/2.5,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(color: Color(0xfff5f5f5),
+          borderRadius: BorderRadius.circular(5)),
+      margin: EdgeInsets.only(top: 30.0),
       child: Form(
         key: _formKey,
         child: Column(
-          children: <Widget>[Padding(
-              padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-              child: Container(
+          children: <Widget>[
+              Container(
                   color: Color(0xfff5f5f5),
-                  width: MediaQuery.of(context).size.width/2,
                   child:Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child:TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         //onSaved: (value)=> email = value,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          labelText: 'Email or Mobile',
+                          hintText: 'Email or Mobile',
+                          hintStyle: TextStyle(color: Colors.grey[400],
+                              fontWeight: FontWeight.w600,
+                            fontFamily:'Italic'
+                          ),
                           labelStyle: TextStyle(color: Colors.blueGrey),
                         ),
                         //keyboardType: TextInputType.emailAddress,
-                        style: TextStyle(color: Colors.blueGrey),
+                        style: TextStyle(color: Colors.grey[600]),
                         cursorColor: Colors.blueGrey,
                       )
                   )
-              )
           ),
+            Divider(color: Colors.blueGrey[200]),
             Container(
-                width: MediaQuery.of(context).size.width/2,
                 color: Color(0xfff5f5f5),
                 child:Padding(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                     child: TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        hintText: 'Password',
+                        hintStyle: TextStyle(color: Colors.grey[400],fontWeight: FontWeight.w600),
                         labelStyle: TextStyle(color: Colors.blueGrey),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
+                        border: InputBorder.none
                       ),
                       keyboardType: TextInputType.text,
-                      style: TextStyle(color: Colors.blueGrey),
+                      style: TextStyle(color: Colors.grey[600]),
                       cursorColor: Colors.blueGrey,
                       obscureText: true,
                     )
@@ -193,14 +144,14 @@ class _LoginState extends State<Login>{
     final loginBtn = Padding(
       padding: EdgeInsets.all(25),
       child: Container(
-          margin: EdgeInsets.all(30),
-          height: 60.0,
-          //width: MediaQuery.of(context).size.width/3,
+          //margin: EdgeInsets.all(30),
+          height: 40,
+          width: MediaQuery.of(context).size.width/2.5,
           child: MaterialButton(
             onPressed: (){signIn(emailController.text,passwordController.text);},
             elevation: 5.0,
             //onPressed: (){},// => Navigator.pushNamed(context, homeViewRoute),
-            color: Color(0xffff2d55),
+            color: Color(0xffE52897),
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(8),
             ),
@@ -208,7 +159,7 @@ class _LoginState extends State<Login>{
               'SIGN IN',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
-                fontSize: 20.0,
+                fontSize: 16,
               ),
             ),
             textColor: Colors.white,
@@ -216,10 +167,9 @@ class _LoginState extends State<Login>{
       ),
     );
 
-    final forgotPassword = Padding(
-      padding: EdgeInsets.only(top: 10.0),
+    final forgotPassword = Container(
+      //padding: EdgeInsets.only(top: 10.0),
       child: InkWell(
-
         child: Center(
           child: Text(
             'Forgot your Password?',
@@ -233,15 +183,18 @@ class _LoginState extends State<Login>{
       ),
     );
 
-    final newUser = Padding(
-      padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-      child: Container(
-        margin: EdgeInsets.only(top: 40.0),
-        height: 60.0,
-        width: MediaQuery.of(context).size.width,
+    Widget newUser = Container(
+        margin: EdgeInsets.fromLTRB(0,10,0,50),
+        height: 40,
+        width: MediaQuery.of(context).size.width/2.5,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: new BorderRadius.circular(8),
+        ),
         child: OutlineButton(
           onPressed: (){},// => Navigator.pushNamed(context, homeViewRoute),
-          color: Color(0xffff2d55),
+          color: Color(0xffE52897),
+          borderSide: BorderSide(color:Color(0xffE52897),width: 2.0),
           shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(8),
           ),
@@ -249,40 +202,36 @@ class _LoginState extends State<Login>{
             'CREATE AN ACCOUNT',
             style: TextStyle(
               fontWeight: FontWeight.w800,
-              fontSize: 20.0,
+              fontSize: 16,
             ),
           ),
-          textColor: Color(0xffff2d55),
-        ),
-      ),
-    );
+          textColor: Color(0xffE52897),
+        )
+      );
 
     return Scaffold(
-
       body:
       DecoratedBox(
-
         decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('Assets/cocina.jpg'),
               fit: BoxFit.cover,
             )
         ),
-        child:
-        Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: ListView(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              pageTitle,
-              loginForm,
-              loginBtn,
-              forgotPassword,
-              newUser
-            ],
-          ),
-        ),
+        child:SingleChildScrollView(child:
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                pageTitle,
+                loginForm,
+                loginBtn,
+                forgotPassword,
+                newUser
+              ],
+            ),
+          )
+        )
       ),
 
     );

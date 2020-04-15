@@ -1,5 +1,6 @@
 import 'dart:typed_data';
-
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +31,7 @@ class _ProfilePage extends State<ProfilePage>{
   File _image;
   Uint8List profilePhoto;
   bool onSelect=false;
+  StreamController<Uint8List> _events;
 
   void createData()async{
     await db.collection('user').document("user-data").setData({
@@ -75,6 +77,14 @@ class _ProfilePage extends State<ProfilePage>{
     });
   }
 
+  void getImage(){
+    StorageReference photoReference = FirebaseStorage.instance.ref().child("userPicture");
+    photoReference.getData(7*1024*1024).then((data){
+      _events.add(data);
+      return data;
+    });
+  }
+
   decideImage(){
     if(profilePhoto == null){
       return DecorationImage(image:AssetImage("Assets/camera_icon.png"),fit: BoxFit.contain);
@@ -97,13 +107,15 @@ class _ProfilePage extends State<ProfilePage>{
     final StorageReference firebaseStoageRef = FirebaseStorage.instance.ref().child('userPicture');
     final StorageUploadTask task = firebaseStoageRef.putFile(_image);
     await task.onComplete;
-    getProfilePhoto();
+    getImage();
     Navigator.pop(context);
   }
+
   @override
   void initState(){
     super.initState();
-    getProfilePhoto();
+    _events = new StreamController<Uint8List>();
+    getImage();
     getData();
   }
 
@@ -123,7 +135,6 @@ class _ProfilePage extends State<ProfilePage>{
                          _image = image;
                        });
                      }
-
                    }
                    pickerCamera(BuildContext context) async{
                      if(!onSelect) {
@@ -153,6 +164,7 @@ class _ProfilePage extends State<ProfilePage>{
                                          onTap: () {
                                            setState((){
                                              onSelect = !onSelect;
+                                             _image = null;
                                            });
                                            Navigator.pop(context);
                                          },
@@ -295,12 +307,31 @@ class _ProfilePage extends State<ProfilePage>{
                             child: Center(
                               child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        image: decideImage()//DecorationImage(image:MemoryImage(profilePhoto),fit: BoxFit.cover)
-                                  )
-                                    )),
+                                  Container(
+                                    child: StreamBuilder(
+                                      stream: _events.stream,
+                                      builder: (BuildContext context,snapshot) {
+                                        if (!snapshot.hasData) {
+                                          return Padding(padding: EdgeInsets.only(top: 25),
+                                            child: CircularProgressIndicator(
+                                            backgroundColor: Color(0xffE52897)
+                                           )
+                                          )
+                                          ;
+                                        }
+                                        return Expanded(
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                        image: MemoryImage(
+                                                            snapshot.data),
+                                                        fit: BoxFit.cover)
+                                                )
+                                            )
+                                        );
+                                      }
+                                    )
+                                  ),
                                   Align(alignment: Alignment.bottomCenter,
                                       child: SizedBox(height: 30,
                                         width: MediaQuery.of(context).size.width,

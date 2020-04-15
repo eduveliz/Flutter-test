@@ -4,6 +4,8 @@ import 'package:eatos_app/screens/profilePage.dart';
 import 'package:eatos_app/screens/menuPage.dart';
 import 'package:eatos_app/screens/menu/categories.dart';
 import 'package:eatos_app/screens/menu/modifiers.dart';
+import 'package:eatos_app/screens/menu/add-ons.dart';
+import 'package:eatos_app/screens/guestBook.dart';
 
 class Settings extends StatefulWidget{
   @override
@@ -15,7 +17,7 @@ class _Settings extends State<Settings>{
     "Add-Ons","Products","Ingredients","Groups", "Employee","Schedule", "Gratuity","Taxes","Discounts",
     "Service Charge","Card Reader","Cash Managment","Payment Options", "Server","Printers","Cash Register","Printer Advanced"
   ];
-  List<Widget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),Menu(),MenuPage(),Categories(),Modifiers(),Menu(),Menu(),Menu(),
+  List<Widget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),GuestBook(),MenuPage(),Categories(),Modifiers(),AddOns(),Menu(),Menu(),
     Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Service(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu()];
   int checkIndex = 0;
 

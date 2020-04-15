@@ -11,7 +11,10 @@ class MenuPage extends StatelessWidget  {
         padding: EdgeInsets.all(15),
         child:ListView(
             children: <Widget>[
-              Text("MENU",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700)),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: Text("MENU",style:TextStyle(fontSize:15,fontWeight: FontWeight.w700))
+              ),
               Container(padding: EdgeInsets.all(10),
                 child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

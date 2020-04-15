@@ -13,7 +13,7 @@ class NewGuestView extends StatefulWidget{
 class _NewGuestView extends State<NewGuestView>  {
 
   int checkIndex = 0;
-  List<String> _listOptions = ["Dine-In","To-Go","Deliver","Banque"];
+  List<String> _listOptions = ["Dine-In","To-Go","Deliver","Banquet"];
   Widget itemsList(){
     return Container(
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +37,6 @@ class _NewGuestView extends State<NewGuestView>  {
   }
 
   void indexChecked(int i) {
-    print(i);
     if (checkIndex == i) return;
     setState(() {
       checkIndex = i;
@@ -64,11 +63,32 @@ class _NewGuestView extends State<NewGuestView>  {
     );
   }
   Future<void> showCustomDialog(BuildContext context, int index){
+    buildOption(String name,bool selected,int index){
+      return Container(
+          padding: EdgeInsets.symmetric(vertical: 5) ,
+          margin: EdgeInsets.symmetric(horizontal: 2) ,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: (selected) ? Color(0xffE52897) : Colors.white,
+            border: Border.all(color:Colors.grey[200]),
+          ),
+          child: Center(
+            child: Text(name, style: TextStyle(
+                color: (selected) ? Colors.white : Color(0xffE52897)),),
+          )
+      );
+    }
     return showDialog(context: context,
         builder: (BuildContext context) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
-
+                changeIndex(a){
+                  print(a);
+                  if (index == a) return;
+                  setState(() {
+                    index = a;
+                  });
+                }
                 return AlertDialog(
                   contentPadding:EdgeInsets.all(0),
                   content:
@@ -105,7 +125,9 @@ class _NewGuestView extends State<NewGuestView>  {
                                       child: Container(height: 25, width: 80,
                                           margin: EdgeInsets.symmetric(
                                               vertical: 5),
-                                          child: MaterialButton(onPressed: () {Navigator.pop(context);},
+                                          child: MaterialButton(onPressed: () {
+                                            indexChecked(index);
+                                            Navigator.pop(context);},
                                               elevation: 10,
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 2),
@@ -128,83 +150,16 @@ class _NewGuestView extends State<NewGuestView>  {
                               child: Column(//mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                    Expanded(
-                                      child: InkWell(
-                                        onTap: () {
-                                          index=0;
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(vertical: 5) ,
-                                          margin: EdgeInsets.all(5) ,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                                            color: (0==index) ? Color(0xffE52897) : Colors.white,
-                                            border: Border.all(color:Colors.grey[200]),
-                                          ),
-                                          child: Center(
-                                            child: Text("DINE-IN", style: TextStyle(
-                                                color: (0==index) ? Colors.white : Color(0xffE52897)),),
-                                          )
-                                      ))
-
-                                    ),
+                                    for(int j=0;j<_listOptions.length;j++)
                                       Expanded(
                                           child: InkWell(
                                               onTap: () {
-                                                index=1;
+                                                changeIndex(j);
                                               },
-                                              child:Container(padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                margin: EdgeInsets.all(5) ,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                  color: (1==index) ? Color(0xffE52897) : Colors.white,
-                                                  border: Border.all(color:Colors.grey[200]),
-                                                ),
-                                                child: Center(
-                                                  child: Text("TO-GO", style: TextStyle(
-                                                    color: (1==index) ? Colors.white : Color(0xffE52897)),),
-                                              )
-                                          ))
-                                      ),
-                                      Expanded(child:
-                                          InkWell(
-                                            onTap: () {
-                                              index=2;
-                                            },
-                                            child: Container(padding: EdgeInsets.symmetric(vertical: 5) ,
-                                              margin: EdgeInsets.all(5) ,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                color: (2==index) ? Color(0xffE52897) : Colors.white,
-                                                border: Border.all(color:Colors.grey[200]),
-                                              ),
-                                              child: Center(
-                                                child: Text("DELIVER", style: TextStyle(
-                                                    color: (2==index) ? Colors.white : Color(0xffE52897)),),
-                                              )
-                                          ))
-                                      ),
-                                      Expanded(
-                                          child: InkWell(
-                                              onTap: () {
-                                                index=3;
-                                              },
-                                              child:
-                                            Container(padding: EdgeInsets.symmetric(vertical: 5) ,
-                                              margin: EdgeInsets.all(5) ,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                color: (3==index) ? Color(0xffE52897) : Colors.white,
-                                                border: Border.all(color:Colors.grey[200]),
-                                              ),
-                                              child: Center(
-                                                child: Text("BANQUET", style: TextStyle(
-                                                    color: (3==index) ? Colors.white : Color(0xffE52897)),),
-                                              )
-                                          ))
-                                      ),
+                                              child: buildOption(_listOptions[j],index==j,j) )
+                                      )
                                   ]),
                                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[

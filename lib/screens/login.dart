@@ -15,7 +15,7 @@ class _LoginState extends State<Login>{
    TextEditingController passwordController =  TextEditingController();
   String email;
   String password;
-
+  bool _showPassword = false;
   @override
   Widget build(BuildContext context) {
 
@@ -97,7 +97,7 @@ class _LoginState extends State<Login>{
               Container(
                   color: Color(0xfff5f5f5),
                   child:Padding(
-                      padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      padding: EdgeInsets.fromLTRB(20, 0, 10  , 0),
                       child:TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
@@ -121,11 +121,19 @@ class _LoginState extends State<Login>{
             Container(
                 color: Color(0xfff5f5f5),
                 child:Padding(
-                    padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
                     child: TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
                         hintText: 'Password',
+                        suffixIcon: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              _showPassword = !_showPassword;
+                            });
+                          },
+                          child: Icon(_showPassword ? Icons.visibility : Icons.visibility_off)
+                        ),
                         hintStyle: TextStyle(color: Colors.grey[400],fontWeight: FontWeight.w600),
                         labelStyle: TextStyle(color: Colors.blueGrey),
                         border: InputBorder.none
@@ -133,7 +141,10 @@ class _LoginState extends State<Login>{
                       keyboardType: TextInputType.text,
                       style: TextStyle(color: Colors.grey[600]),
                       cursorColor: Colors.blueGrey,
-                      obscureText: true,
+                      obscureText: !_showPassword,
+                      validator: (String value){
+                        if(value.isEmpty){return "Please enter your password" ;}
+                      },
                     )
                 )
             )],

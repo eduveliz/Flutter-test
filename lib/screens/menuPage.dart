@@ -287,6 +287,6 @@ class MenuPage extends StatelessWidget  {
       ),
     );
     showDialog(
-        context: context, builder: (BuildContext context) => fancyDialog);
+        context: context, builder: (BuildContext context) => SingleChildScrollView(child: fancyDialog));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
+import 'dart:convert';
 
 class Categories extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _Categories extends State<Categories>{
   });
   }
   getData()async{
-    return await Firestore.instance.collection('categories').getDocuments();
+    return await Firestore.instance.collection('categories').orderBy('categoryName').getDocuments();
   }
 
   @override
@@ -87,47 +88,74 @@ class _Categories extends State<Categories>{
                 ),
               ),
               Expanded(
-                child:Container(
-                    padding: EdgeInsets.fromLTRB(5, 15, 5, 15),
+                child:Container(//color: Colors.greenAccent,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.fromLTRB(15, 15, 10, 15),
                     child: StreamBuilder(
-                        stream: Firestore.instance.collection('categories').snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if(dataSnapshot != null){
-                            //if (!snapshot.hasData) return CircularProgressIndicator();
+                        stream: Firestore.instance.collection('categories').orderBy('categoryName').snapshots(),
+                        builder: (BuildContext context, snapshot) {
+                          if (!snapshot.hasData) return CircularProgressIndicator();
+                            return Column(mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    color: Color(0xFFC6BFC3),
+                                    padding: EdgeInsets.all(10),
+                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                        Expanded(child:Text("CATEGORY NAME",textAlign: TextAlign.center, style: TextStyle(fontSize: 10))),
+                                        Expanded(child:Text("PARENT",textAlign: TextAlign.center,style: TextStyle(fontSize: 10))),
+                                        Expanded(child:Text("COURSE",textAlign: TextAlign.center,style: TextStyle(fontSize: 10)))
+                                        ]
+                                    )
+                                  ),
+                                  Row(
+                                      children: [
+                                       Expanded(
+                                         child:  ListView(
+                                           scrollDirection: Axis.vertical,
+                                           shrinkWrap: true,
+                                           children: <Widget>[
+                                             for (int i= 0; i< snapshot.data.documents.length;i++)
+                                               Row(crossAxisAlignment: CrossAxisAlignment.center,
+                                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                 children: <Widget>[
+                                                   Expanded(child:
+                                                    Container(
+                                                        padding: EdgeInsets.symmetric(vertical: 8),
+                                                        child: Text(
+                                                      '${snapshot.data.documents[i].data['categoryName']}',
+                                                            style: TextStyle(fontSize: 10),
+                                                            textAlign: TextAlign.center)
+                                                    )
 
-                                  return Table(
-                                    border: TableBorder.all(color: Color(0xFFC6BFC3)),
-                                    children: [
-                                      TableRow(
-                                          children: [
-                                            Container(padding:EdgeInsets.all(10),color: Color(0xFFC6BFC3),child: Text("CATEGORY NAME",style: TextStyle(fontSize: 10),textAlign: TextAlign.center,)),
-                                            Container(padding:EdgeInsets.all(10),color:Color(0xFFC6BFC3),child: Text("PARENT",textAlign: TextAlign.center,style: TextStyle(fontSize: 10))),
-                                            Container(padding:EdgeInsets.all(10),color:Color(0xFFC6BFC3),child: Text("COURSE",textAlign: TextAlign.center,style: TextStyle(fontSize: 10)))
-                                          ]
-                                      ),
-                                   for (int i= 0; i< dataSnapshot.documents.length;i++)
-                                       TableRow(
-                                          children: [
-                                            Container(padding: EdgeInsets.all(10),
-                                                child: Center(child: Text(
-                                                    '${dataSnapshot.documents[i]
-                                                        .data['categoryName']}'))),
-                                            Container(padding: EdgeInsets.all(10),
-                                                child: Center(child: Text(
-                                                    '${dataSnapshot.documents[i]
-                                                        .data['parentCategory']}'
-                                                ))),
-                                            Container(padding: EdgeInsets.all(10),
-                                                child: Center(child: Text(
-                                                    '${dataSnapshot.documents[i]
-                                                        .data['cousePosition']}')))
-                                          ]
-                                      )
+                                                   ),
+                                                   Expanded(
+                                                     child: Container(
+                                                         child: Text(
+                                                             '${snapshot.data.documents[i].data['parentCategory']}',
+                                                             style: TextStyle(fontSize: 10),
+                                                             textAlign: TextAlign.center
+                                                         ))
+                                                   ),
+                                                   Expanded(
+                                                     child: Container(
+                                                         child: Center(child: Text(
+                                                             '${snapshot.data.documents[i].data['coursePosition']}',
+                                                             style: TextStyle(fontSize: 10),
+                                                             textAlign: TextAlign.center
+                                                         )))
+                                                   )
+                                                 ],
+                                               )
+                                           ],
+                                         ),
+                                       )
+
+                                      ]
+                                  )
                                 ]
                             );
-                          }else{
-                            return Text("Loading..");
-                          }
+
                         })
                 ) ,
               )

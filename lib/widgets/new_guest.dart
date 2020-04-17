@@ -89,295 +89,295 @@ class _NewGuestView extends State<NewGuestView>  {
                     index = a;
                   });
                 }
-                return AlertDialog(
-                  contentPadding:EdgeInsets.all(0),
-                  content:
-                  Container( width: MediaQuery.of(context).size.width-50,
-                      child:
+                return SingleChildScrollView(
+                  child: AlertDialog(
+                    contentPadding:EdgeInsets.all(0),
+                    content:
+                    Container( width:600,
+                        child:
                         Column(
-                        children: <Widget>[
-                          Container(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(color: Colors.grey[700]),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Container(margin: EdgeInsets.all(5),
-                                        padding: EdgeInsets.symmetric(horizontal: 10),
-                                        decoration: BoxDecoration(border: Border.all(),
-                                        ),
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.white,
+                          children: <Widget>[
+                            Container(
+                                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(color: Colors.grey[700]),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(margin: EdgeInsets.all(5),
+                                          padding: EdgeInsets.symmetric(horizontal: 10),
+                                          decoration: BoxDecoration(border: Border.all(),
+                                          ),
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Container(height: 25, width: 80,
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 5),
-                                          child: MaterialButton(onPressed: () {
-                                            indexChecked(index);
-                                            Navigator.pop(context);},
-                                              elevation: 10,
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 2),
-                                              child: Text("DONE", style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400)),
-                                              color: Color(0xff17AF7E),
-                                              textColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: new BorderRadius
-                                                    .circular(20),
-                                              ))
-                                      )
-                                  )
-                                ],
-                              )
-                          ),
-                          Container(width: double.maxFinite,
-                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              child: Column(//mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                    for(int j=0;j<_listOptions.length;j++)
-                                      Expanded(
-                                          child: InkWell(
-                                              onTap: () {
-                                                changeIndex(j);
-                                              },
-                                              child: buildOption(_listOptions[j],index==j,j) )
-                                      )
-                                  ]),
-                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
+                                    Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(height: 25, width: 80,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            child: MaterialButton(onPressed: () {
+                                              indexChecked(index);
+                                              Navigator.pop(context);},
+                                                elevation: 10,
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 2),
+                                                child: Text("DONE", style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w400)),
+                                                color: Color(0xff17AF7E),
+                                                textColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: new BorderRadius
+                                                      .circular(20),
+                                                ))
+                                        )
+                                    )
+                                  ],
+                                )
+                            ),
+                            Container(width: double.maxFinite,
+                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                child: Column(//mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          for(int j=0;j<_listOptions.length;j++)
+                                            Expanded(
+                                                child: InkWell(
+                                                    onTap: () {
+                                                      changeIndex(j);
+                                                    },
+                                                    child: buildOption(_listOptions[j],index==j,j) )
+                                            )
+                                        ]),
+                                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
                                           Expanded(
-                                            child: Container(
-                                                padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                margin: EdgeInsets.all(5) ,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                  border: Border.all(color:Colors.grey[500]),
-                                                ),
-                                                child: Center(
-                                                  child: TextFormField(
-                                                    //controller: firstNameController,
-                                                    style: TextStyle(fontSize: 12),
-                                                    decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                        hintText:'Order Name - Table number' ,
-                                                        border: InputBorder.none
-                                                    ),
+                                              child: Container(
+                                                  padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                  margin: EdgeInsets.all(5) ,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                    border: Border.all(color:Colors.grey[500]),
+                                                  ),
+                                                  child: Center(
+                                                      child: TextFormField(
+                                                        //controller: firstNameController,
+                                                        style: TextStyle(fontSize: 12),
+                                                        decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                            hintText:'Order Name - Table number' ,
+                                                            border: InputBorder.none
+                                                        ),
+                                                      )
                                                   )
-                                                )
-                                          )),
-                                        Expanded(
-                                            child: Container(
-                                                padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                margin: EdgeInsets.all(5) ,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                  border: Border.all(color:Colors.grey[500]),
-                                                ),
-                                                child: Center(
-                                                    child: TextFormField(
-                                                      //controller: firstNameController,
-                                                      style: TextStyle(fontSize: 12),
-                                                      decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                          hintText:'Search by Customer Name or Number' ,
-                                                          border: InputBorder.none
+                                              )),
+                                          Expanded(
+                                              child: Container(
+                                                  padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                  margin: EdgeInsets.all(5) ,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                    border: Border.all(color:Colors.grey[500]),
+                                                  ),
+                                                  child: Center(
+                                                      child: TextFormField(
+                                                        //controller: firstNameController,
+                                                        style: TextStyle(fontSize: 12),
+                                                        decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                            hintText:'Search by Customer Name or Number' ,
+                                                            border: InputBorder.none
+                                                        ),
+                                                      )
+                                                  )
+                                              ))
+                                        ]),
+                                    SingleChildScrollView(child: Column(
+                                      children: <Widget>[
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
                                                       ),
-                                                    )
-                                                )
-                                            ))
-                                      ]),
-                                  SingleChildScrollView(child: Column(
-                                   children: <Widget>[
-                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: <Widget>[
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'Customer Name' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               )),
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'Email' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               )),
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'Phone Number' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               ))
-                                         ]),
-                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: <Widget>[
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'Address' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               )),
-                                         ]),
-                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: <Widget>[
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'Apt, Suite,Building' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               )),
-                                         ]),
-                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: <Widget>[
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'City' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               )),
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'State' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               )),
-                                           Expanded(
-                                               child: Container(
-                                                   padding: EdgeInsets.symmetric(vertical: 5) ,
-                                                   margin: EdgeInsets.all(5) ,
-                                                   decoration: BoxDecoration(
-                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                     border: Border.all(color:Colors.grey[500]),
-                                                   ),
-                                                   child: Center(
-                                                       child: TextFormField(
-                                                         //controller: firstNameController,
-                                                         style: TextStyle(fontSize: 12),
-                                                         decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                                             hintText:'Zipe Code' ,
-                                                             border: InputBorder.none
-                                                         ),
-                                                       )
-                                                   )
-                                               ))
-                                         ]),
-                                   ],
-                                  ))
-                                ],
-                              )
-                          ),
-                        ],
-                      )
-
-                  ),
-
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'Customer Name' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  )),
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
+                                                      ),
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'Email' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  )),
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
+                                                      ),
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'Phone Number' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  ))
+                                            ]),
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
+                                                      ),
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'Address' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  )),
+                                            ]),
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
+                                                      ),
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'Apt, Suite,Building' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  )),
+                                            ]),
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
+                                                      ),
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'City' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  )),
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
+                                                      ),
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'State' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  )),
+                                              Expanded(
+                                                  child: Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5) ,
+                                                      margin: EdgeInsets.all(5) ,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        border: Border.all(color:Colors.grey[500]),
+                                                      ),
+                                                      child: Center(
+                                                          child: TextFormField(
+                                                            //controller: firstNameController,
+                                                            style: TextStyle(fontSize: 12),
+                                                            decoration: InputDecoration(contentPadding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                                                hintText:'Zipe Code' ,
+                                                                border: InputBorder.none
+                                                            ),
+                                                          )
+                                                      )
+                                                  ))
+                                            ]),
+                                      ],
+                                    ))
+                                  ],
+                                )
+                            ),
+                          ],
+                        )
+                    ),
+                  )
                 );
               });
         });
@@ -390,9 +390,6 @@ class _NewGuestView extends State<NewGuestView>  {
         decoration: BoxDecoration(color: Colors.white,
             border: Border(left:BorderSide(width: 0.2,color: Colors.blueGrey[200]),
               top: BorderSide(width: 0.2,color: Colors.blueGrey[200]),
-              //right:BorderSide(width: 0.2,color: Colors.red),
-              //bottom: BorderSide(width: 0.2,color: Colors.blueGrey)),
-              //borderRadius: BorderRadius.only(topLeft:Radius.circular(15)
             )
         ),
         child: Column(

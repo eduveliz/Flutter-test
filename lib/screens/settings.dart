@@ -1,3 +1,5 @@
+import 'package:eatos_app/screens/staff/employees.dart';
+import 'package:eatos_app/screens/staff/schedule.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eatos_app/screens/profilePage.dart';
@@ -18,9 +20,9 @@ class _Settings extends State<Settings>{
     "Service Charge","Card Reader","Cash Managment","Payment Options", "Server","Printers","Cash Register","Printer Advanced"
   ];
   List<Widget> _listScreens = [PageGeneral(),ProfilePage(),EndDay(),GuestBook(),MenuPage(),Categories(),Modifiers(),AddOns(),Menu(),Menu(),
-    Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Service(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu()];
+    Menu(),Employees(),Schedules(),Menu(),Menu(),Menu(),Service(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu(),Menu()];
   int checkIndex = 0;
-
+  List<bool> isSelected = [true,false,false,false,false];
   void indexChecked(int i) {
     print(checkIndex);
     print(i);
@@ -42,6 +44,7 @@ class _Settings extends State<Settings>{
               color: Color(0xff565962),
               child: ListView(
                 children: <Widget>[
+
                   ExpansionTile(
                     title: FittedBox(fit: BoxFit.fitWidth,child: Text("RESTAURANT",style: TextStyle(color: Colors.white))),
                     trailing: Icon(Icons.chevron_left,color: Colors.white),
